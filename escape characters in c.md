@@ -1,133 +1,41 @@
 # 🌈 Escape Characters in C Programming
 
-> 🎯 **Learning Goal:**  
-> After completing this article, you should understand what escape characters are, why they are necessary, how they work, and how to use the most important escape sequences in C programs.
+## 🎯 Learning Goal
+
+After this lesson, you should understand:
+
+- What escape characters are
+- Why they are used
+- The most important escape sequences in C
+- How to use them with `printf()`
 
 ---
 
-# 📚 Table of Contents
+# 🔹 What Is an Escape Sequence?
 
-1. [Introduction](#-1-introduction)
-2. [What Is an Escape Character?](#-2-what-is-an-escape-character)
-3. [Why Do We Need Escape Characters?](#-3-why-do-we-need-escape-characters)
-4. [Common Escape Sequences](#-4-common-escape-sequences)
-5. [New Line `\n`](#-5-new-line-n)
-6. [Horizontal Tab `\t`](#-6-horizontal-tab-t)
-7. [Double Quote `\"`](#-7-double-quote-)
-8. [Backslash `\\`](#-8-backslash-)
-9. [Single Quote `\'`](#-9-single-quote-)
-10. [Character vs String](#-10-character-vs-string)
-11. [Null Character `\0`](#-11-null-character-0)
-12. [`'0'` vs `'\0'`](#-12-0-vs-0)
-13. [Carriage Return `\r`](#-13-carriage-return-r)
-14. [Backspace `\b`](#-14-backspace-b)
-15. [Alert `\a`](#-15-alert-a)
-16. [Form Feed `\f`](#-16-form-feed-f)
-17. [Vertical Tab `\v`](#-17-vertical-tab-v)
-18. [Complete C Example](#-18-complete-c-example)
-19. [How Escape Sequences Work](#-19-how-escape-sequences-work)
-20. [Real-World Example](#-20-real-world-example)
-21. [Common Mistakes](#-21-common-mistakes)
-22. [Quick Reference](#-22-quick-reference)
-23. [Classroom Exercises](#-23-classroom-exercises)
-24. [Summary](#-24-summary)
-
----
-
-# 🚀 1. Introduction
-
-When we write a C program, we frequently display text using the `printf()` function.
-
-For example:
-
-```c
-printf("Hello World");
-```
-
-Output:
-
-```text
-Hello World
-```
-
-But sometimes we want to perform special actions such as:
-
-- Move to a new line
-- Insert a tab
-- Display quotation marks
-- Display a backslash
-- Represent the end of a string
-- Move the cursor
-- Produce an alert
-
-Normal characters are not enough for these operations.
-
-C therefore provides something called:
-
-# ✨ Escape Sequences
-
----
-
-# 🔍 2. What Is an Escape Character?
-
-An **escape sequence** is a special combination of characters beginning with a:
+An **escape sequence** is a special combination of characters beginning with a backslash:
 
 ```text
 \
 ```
 
-This symbol is called a:
-
-> **Backslash**
-
-The general structure is:
-
-```text
-Backslash + Special Character
-```
+It tells C that the next character has a **special meaning**.
 
 For example:
+
+```c
+printf("Hello\nWorld");
+```
+
+Here:
 
 ```text
 \n
 ```
 
-contains:
+means:
 
-```text
-\  +  n
-```
-
-and means:
-
-> Move to a **new line**.
-
----
-
-## 🧠 Simple Definition
-
-> An **escape sequence in C** is a combination beginning with a backslash `\` that represents a special character or special formatting instruction.
-
----
-
-# 🎨 Visual Concept
-
-```text
-Normal Text
-    │
-    │
-    ▼
-"Hello World"
-
-Special Formatting
-    │
-    │
-    ▼
-"Hello\nWorld"
-       │
-       ▼
-    New Line
-```
+> Move to a new line.
 
 Output:
 
@@ -136,144 +44,53 @@ Hello
 World
 ```
 
----
-
-# 🔧 3. Why Do We Need Escape Characters?
-
-Consider the following statement:
-
-```c
-printf("Hello World");
-```
-
-This simply prints:
+### Visual Explanation
 
 ```text
-Hello World
-```
-
-But suppose we want:
-
-```text
-Hello
-World
-```
-
-We cannot simply press Enter inside a traditional C string like this:
-
-```c
-printf("Hello
-World");
-```
-
-❌ This is not valid normal C string syntax.
-
-Instead, we use:
-
-```c
-printf("Hello\nWorld");
-```
-
-The `\n` tells the program:
-
-```text
-Print Hello
-     │
-     ▼
-Go to next line
-     │
-     ▼
-Print World
+"Hello\nWorld"
+       │
+       ▼
+      \n
+       │
+       ▼
+   New Line
 ```
 
 ---
 
-# 🗂️ 4. Common Escape Sequences
+# 🔹 Most Important Escape Sequences
 
-The following are some of the most important escape sequences in C.
-
-| Escape Sequence | Name | Meaning |
+| Escape Sequence | Meaning | Example |
 |---|---|---|
-| `\n` | New Line | Move to next line |
-| `\t` | Horizontal Tab | Insert tab space |
-| `\\` | Backslash | Print `\` |
-| `\"` | Double Quote | Print `"` |
-| `\'` | Single Quote | Represent `'` |
-| `\0` | Null Character | Marks end of C string |
-| `\r` | Carriage Return | Move cursor to start of line |
-| `\b` | Backspace | Move cursor backward |
-| `\a` | Alert | Produce terminal alert |
-| `\f` | Form Feed | Move to next page/form |
-| `\v` | Vertical Tab | Vertical tab movement |
+| `\n` | New line | `"Hello\nWorld"` |
+| `\t` | Tab | `"Name\tAge"` |
+| `\"` | Double quote | `"Say \"Hello\""` |
+| `\\` | Backslash | `"C:\\Users"` |
+| `\'` | Single quote | `'\''` |
+| `\0` | Null character | End of a C string |
+
+These are the escape sequences beginners will use most frequently.
 
 ---
 
-# 🟢 5. New Line `\n`
+# 🟢 1. New Line — `\n`
 
-The most commonly used escape sequence in C is:
+`\n` moves the cursor to the next line.
 
-```text
-\n
-```
-
-It means:
-
-> **New Line**
-
-It works similarly to pressing the **Enter key**.
-
----
-
-## 💻 Example
+### Example
 
 ```c
 #include <stdio.h>
 
 int main(void)
 {
-    printf("Hello\nWorld");
+    printf("C Programming\nPython Programming\nJava Programming");
 
     return 0;
 }
 ```
 
----
-
-## 🖥️ Output
-
-```text
-Hello
-World
-```
-
----
-
-## 🧩 Visualization
-
-```text
-"Hello\nWorld"
-
- Hello
-   │
-   ▼
-  \n
-   │
-   ▼
-New Line
-   │
-   ▼
- World
-```
-
----
-
-## Another Example
-
-```c
-printf("C Programming\nPython Programming\nJava Programming\n");
-```
-
-Output:
+### Output
 
 ```text
 C Programming
@@ -281,25 +98,19 @@ Python Programming
 Java Programming
 ```
 
----
-
-# 🔵 6. Horizontal Tab `\t`
-
-The escape sequence:
+Think of `\n` as pressing:
 
 ```text
-\t
+ENTER
 ```
-
-means:
-
-> **Horizontal Tab**
-
-It creates horizontal spacing.
 
 ---
 
-## 💻 Example
+# 🔵 2. Horizontal Tab — `\t`
+
+`\t` adds horizontal spacing.
+
+### Example
 
 ```c
 printf("Name\tAge\tCity\n");
@@ -313,41 +124,13 @@ Name    Age     City
 Ali     25      Copenhagen
 ```
 
----
-
-## 📊 Using Tabs to Create Tables
-
-```c
-#include <stdio.h>
-
-int main(void)
-{
-    printf("Product\tPrice\tQuantity\n");
-
-    printf("Laptop\t8000\t2\n");
-    printf("Mouse\t200\t5\n");
-    printf("Keyboard\t500\t3\n");
-
-    return 0;
-}
-```
-
-Possible output:
-
-```text
-Product     Price   Quantity
-Laptop      8000    2
-Mouse       200     5
-Keyboard    500     3
-```
-
-> 💡 `\t` is useful for simple terminal-based tables, although exact alignment depends on the text length and terminal tab width.
+This is useful for creating simple tables.
 
 ---
 
-# 🟣 7. Double Quote `\"`
+# 🟣 3. Double Quote — `\"`
 
-C strings use double quotation marks.
+Strings in C use double quotation marks.
 
 For example:
 
@@ -355,37 +138,19 @@ For example:
 printf("Hello");
 ```
 
-Suppose we want to display:
+Suppose we want to print:
 
 ```text
 He said "Hello"
 ```
 
-If we write:
+This is incorrect:
 
 ```c
 printf("He said "Hello"");
 ```
 
-❌ The compiler becomes confused.
-
-Why?
-
-Because C thinks that the second quotation mark ends the string.
-
----
-
-## Visualization
-
-```text
-"He said "Hello""
- ↑       ↑
-Start    C thinks the string ends here
-```
-
----
-
-## ✅ Correct Solution
+❌ The compiler thinks the string ends before `Hello`.
 
 Use:
 
@@ -393,7 +158,7 @@ Use:
 \"
 ```
 
-Example:
+Correct:
 
 ```c
 printf("He said \"Hello\"");
@@ -407,39 +172,11 @@ He said "Hello"
 
 ---
 
-## Another Example
+# 🟠 4. Backslash — `\\`
 
-```c
-printf("\"C Programming\" is interesting.");
-```
+Because `\` starts an escape sequence, we need two backslashes when we actually want to print one.
 
-Output:
-
-```text
-"C Programming" is interesting.
-```
-
----
-
-# 🟠 8. Backslash `\\`
-
-The backslash:
-
-```text
-\
-```
-
-has a special meaning in C because it begins an escape sequence.
-
-Therefore, if we actually want to print a backslash, we must write:
-
-```text
-\\
-```
-
----
-
-## 💻 Example
+### Example
 
 ```c
 printf("C:\\Users\\Student\\Documents");
@@ -451,83 +188,36 @@ Output:
 C:\Users\Student\Documents
 ```
 
----
-
-## Visualization
+### Simple Rule
 
 ```text
-C Code          Output
+C Code        Output
 
-\\              \
-
-\\\\            \\
+\\      →       \
 ```
 
----
-
-## 🪟 Windows Path Example
-
-Suppose the actual Windows path is:
-
-```text
-C:\Programming\C\Projects
-```
-
-The C code should be:
-
-```c
-printf("C:\\Programming\\C\\Projects");
-```
-
-Output:
-
-```text
-C:\Programming\C\Projects
-```
+This is especially useful for Windows paths.
 
 ---
 
-# 🟡 9. Single Quote `\'`
+# 🟡 5. Single Quote — `\'`
 
-Characters in C normally use single quotation marks.
-
-Example:
+Characters in C use single quotes:
 
 ```c
 char grade = 'A';
 ```
 
-But what happens if we want the actual single quote character?
-
-This is incorrect:
-
-```c
-char symbol = ''';
-```
-
-❌ The compiler cannot determine where the character begins and ends.
-
-Instead, use:
+If we want to store the quotation mark itself:
 
 ```c
 char symbol = '\'';
 ```
 
----
-
-## 💻 Complete Example
+Example:
 
 ```c
-#include <stdio.h>
-
-int main(void)
-{
-    char symbol = '\'';
-
-    printf("%c\n", symbol);
-
-    return 0;
-}
+printf("%c", symbol);
 ```
 
 Output:
@@ -538,623 +228,169 @@ Output:
 
 ---
 
-# 🔤 10. Character vs String
+# 🔴 6. Null Character — `\0`
 
-One of the most important beginner concepts in C is understanding the difference between a:
+`\0` is very important when learning **strings in C**.
 
-- Character
-- String
+It represents the:
 
----
+> Null character
 
-## 🟦 Character
+C uses it to mark the **end of a string**.
 
-A character uses:
-
-```text
-Single quotes
-```
-
-Example:
-
-```c
-char letter = 'A';
-```
-
----
-
-## 🟩 String
-
-A string uses:
-
-```text
-Double quotes
-```
-
-Example:
-
-```c
-char name[] = "Ali";
-```
-
----
-
-## Visual Comparison
-
-```text
-CHARACTER
-
-'A'
- │
- ▼
-One character
-
-
-STRING
-
-"Ali"
- │
- ├── A
- ├── l
- ├── i
- └── \0
-```
-
----
-
-## Comparison Table
-
-| Concept | Example | Description |
-|---|---|---|
-| Character | `'A'` | One character |
-| String | `"A"` | String containing one character + `\0` |
-| Character | `'\n'` | New-line character |
-| String | `"\n"` | String containing newline + `\0` |
-
----
-
-# 🔴 11. Null Character `\0`
-
-One of the most important escape sequences in C is:
-
-```text
-\0
-```
-
-It is called the:
-
-# Null Character
-
-Its numeric value is:
-
-```text
-0
-```
-
-C uses the null character to indicate:
-
-> **The end of a string**
-
----
-
-## Example
+For example:
 
 ```c
 char word[] = "CAT";
 ```
 
-We see:
+C actually stores:
 
 ```text
-C A T
+C     A     T     \0
+│     │     │      │
+▼     ▼     ▼      ▼
+┌───┬───┬───┬────┐
+│ C │ A │ T │ \0 │
+└───┴───┴───┴────┘
+                │
+                ▼
+          End of String
 ```
 
-But internally C stores:
+Therefore `"CAT"` has:
 
 ```text
-C A T \0
-```
-
----
-
-## 🧠 Memory Visualization
-
-```text
-Computer Memory
-
-┌───────┬───────┬───────┬───────┐
-│   C   │   A   │   T   │  \0   │
-└───────┴───────┴───────┴───────┘
-                            │
-                            ▼
-                       End of String
-```
-
-Therefore:
-
-```text
-"CAT"
-```
-
-contains three visible characters but requires storage for four characters:
-
-```text
-C
-A
-T
-\0
+3 visible characters
++
+1 null character
+=
+4 memory positions
 ```
 
 ---
 
-# ⚠️ 12. `'0'` vs `'\0'`
+# ⚠️ `'0'` and `'\0'` Are Different
 
-This is a very common source of confusion.
-
-These two values are **not the same**:
+Students often confuse these two.
 
 ```c
 '0'
 ```
 
-and:
-
-```c
-'\0'
-```
-
----
-
-## `'0'`
-
-This represents the visible character:
+means the visible character:
 
 ```text
 0
 ```
 
-In ASCII:
+But:
 
-```text
-'0' = 48
+```c
+'\0'
 ```
 
----
-
-## `'\0'`
-
-This represents:
+means:
 
 ```text
 Null Character
 ```
 
-Its numeric value is:
+Comparison:
 
-```text
-0
-```
-
----
-
-## Comparison
-
-| Code | Meaning | Typical numeric value |
+| Code | Meaning | Numeric Value |
 |---|---|---:|
-| `'0'` | Character zero | 48 |
+| `'0'` | Character zero | 48 in ASCII |
 | `'\0'` | Null character | 0 |
 
----
-
-## Visual Explanation
+So:
 
 ```text
-'0'
- │
- └────► Visible character: 0
-
-
-'\0'
- │
- └────► Special null character
-         used to terminate C strings
-```
-
-> ⚠️ Remember: `'0'` and `'\0'` are completely different.
-
----
-
-# 🟤 13. Carriage Return `\r`
-
-The escape sequence:
-
-```text
-\r
-```
-
-means:
-
-> **Carriage Return**
-
-It moves the cursor back toward the beginning of the current line.
-
----
-
-## Example
-
-```c
-printf("Hello\rABC");
-```
-
-The exact visible result can depend on the terminal.
-
----
-
-## Operating System Connection
-
-New-line representations have historically differed between operating systems.
-
-### Linux / Unix
-
-```text
-\n
-```
-
-### Traditional Windows Text Files
-
-```text
-\r\n
-```
-
-This means:
-
-```text
-\r = Carriage Return
-
-\n = New Line
+'0'  ≠  '\0'
 ```
 
 ---
 
-# ⬅️ 14. Backspace `\b`
+# 🧠 How Escape Sequences Work
 
-The escape sequence:
-
-```text
-\b
-```
-
-means:
-
-> **Backspace**
-
-It moves the cursor backward.
-
-Example:
-
-```c
-printf("ABC\bD");
-```
-
-Conceptually:
-
-```text
-A B C
-    ↑
-    │
-   \b
-
-Move cursor backward
-```
-
-The exact display may depend on the terminal.
-
----
-
-# 🔔 15. Alert `\a`
-
-The sequence:
-
-```text
-\a
-```
-
-means:
-
-> **Alert**
-
-Example:
-
-```c
-printf("\a");
-```
-
-Depending on the computer and terminal, it may:
-
-- 🔊 Produce a beep
-- 🔔 Produce an alert
-- 💡 Flash the terminal
-- ❌ Do nothing
-
-Many modern terminals ignore the alert character.
-
----
-
-# 📄 16. Form Feed `\f`
-
-The escape sequence:
-
-```text
-\f
-```
-
-means:
-
-> **Form Feed**
-
-Historically, it was used with printers to move to the next page.
-
-Example:
-
-```c
-printf("Page 1\fPage 2");
-```
-
-Today, `\f` is rarely used in normal terminal applications.
-
----
-
-# ↕️ 17. Vertical Tab `\v`
-
-The sequence:
-
-```text
-\v
-```
-
-means:
-
-> **Vertical Tab**
-
-Example:
-
-```c
-printf("Hello\vWorld");
-```
-
-Its behavior depends heavily on the terminal.
-
-It is rarely used in modern applications.
-
----
-
-# 💻 18. Complete C Example
-
-The following program demonstrates several important escape sequences.
-
-```c
-#include <stdio.h>
-
-int main(void)
-{
-    printf("====================================\n");
-    printf("      ESCAPE SEQUENCES IN C\n");
-    printf("====================================\n\n");
-
-    printf("1. New Line:\\n\n");
-    printf("Hello\nWorld\n\n");
-
-    printf("2. Horizontal Tab:\\t\n");
-    printf("Name\tAge\tCity\n");
-    printf("Ali\t25\tCopenhagen\n\n");
-
-    printf("3. Double Quotes:\n");
-    printf("He said \"Hello World\"\n\n");
-
-    printf("4. Backslash:\n");
-    printf("C:\\Users\\Student\\Documents\n\n");
-
-    printf("5. Single Quote:\n");
-    printf("It\'s C programming!\n\n");
-
-    printf("====================================\n");
-
-    return 0;
-}
-```
-
----
-
-## 🖥️ Possible Output
-
-```text
-====================================
-      ESCAPE SEQUENCES IN C
-====================================
-
-1. New Line:\n
-Hello
-World
-
-2. Horizontal Tab:\t
-Name    Age     City
-Ali     25      Copenhagen
-
-3. Double Quotes:
-He said "Hello World"
-
-4. Backslash:
-C:\Users\Student\Documents
-
-5. Single Quote:
-It's C programming!
-
-====================================
-```
-
----
-
-# ⚙️ 19. How Escape Sequences Work
-
-The general idea is:
+The basic idea is:
 
 ```text
 Backslash + Character
         │
         ▼
-Escape Sequence
+  Escape Sequence
         │
         ▼
-Special Meaning
+   Special Meaning
 ```
 
-For example:
+Examples:
 
 ```text
-\ + n
-  │
-  ▼
- \n
-  │
-  ▼
-New Line
-```
+\ + n   →   \n   →   New Line
 
-Another example:
+\ + t   →   \t   →   Tab
 
-```text
-\ + t
-  │
-  ▼
- \t
-  │
-  ▼
-Horizontal Tab
+\ + "   →   \"   →   Double Quote
+
+\ + \   →   \\   →   Backslash
 ```
 
 ---
 
-## 🌈 Escape Sequence Flow Diagram
-
-```mermaid
-flowchart TD
-
-A["C String"] --> B{"Backslash Found?"}
-
-B -->|No| C["Print Normal Character"]
-
-B -->|Yes| D["Check Next Character"]
-
-D --> E["n"]
-D --> F["t"]
-D --> G["quote"]
-D --> H["backslash"]
-D --> I["0"]
-
-E --> E1["New Line"]
-F --> F1["Horizontal Tab"]
-G --> G1["Quotation Mark"]
-H --> H1["Backslash"]
-I --> I1["Null Character"]
-```
-
----
-
-# 🤖 20. Real-World Example
-
-Imagine we are displaying information from a robot system.
-
-We want the terminal to show:
-
-```text
-===== ROBOT STATUS =====
-
-Robot Name:     TurboPi
-Battery:        85%
-Distance:       45 cm
-Status:         "Running"
-
-Configuration:
-C:\Robot\TurboPi\Config
-
-========================
-```
-
-We can create it using:
+# 💻 Complete Example
 
 ```c
 #include <stdio.h>
 
 int main(void)
 {
-    printf("===== ROBOT STATUS =====\n\n");
+    printf("===== Student Information =====\n\n");
 
-    printf("Robot Name:\tTurboPi\n");
-    printf("Battery:\t85%%\n");
-    printf("Distance:\t45 cm\n");
-    printf("Status:\t\t\"Running\"\n\n");
+    printf("Name:\tAli\n");
+    printf("Age:\t25\n");
+    printf("Course:\t\"C Programming\"\n\n");
 
-    printf("Configuration:\n");
-    printf("C:\\Robot\\TurboPi\\Config\n\n");
-
-    printf("========================\n");
+    printf("Folder:\n");
+    printf("C:\\Students\\CProgramming\n");
 
     return 0;
 }
 ```
 
----
-
-# 🧠 Important Extra Concept: Printing `%`
-
-Although `%` is not an escape sequence beginning with `\`, it has a special meaning inside `printf()`.
-
-For example:
-
-```c
-printf("%d", age);
-```
-
-Therefore, if you want to print an actual percentage sign:
+### Output
 
 ```text
-%
+===== Student Information =====
+
+Name:   Ali
+Age:    25
+Course: "C Programming"
+
+Folder:
+C:\Students\CProgramming
 ```
 
-you normally write:
-
-```c
-%%
-```
-
-Example:
-
-```c
-printf("Battery: 85%%");
-```
-
-Output:
+This example combines:
 
 ```text
-Battery: 85%
+\n
+\t
+\"
+\\
 ```
 
 ---
 
-# ⚠️ 21. Common Mistakes
+# ⚠️ Common Mistakes
 
-## ❌ Mistake 1 — Using Forward Slash
+### ❌ Wrong Slash
 
-Wrong:
+Incorrect:
 
 ```c
 printf("Hello/nWorld");
-```
-
-Output:
-
-```text
-Hello/nWorld
 ```
 
 Correct:
@@ -1163,33 +399,27 @@ Correct:
 printf("Hello\nWorld");
 ```
 
-Remember:
-
-```text
-/
-```
-
-is a forward slash.
-
-But escape sequences use:
+Escape sequences use:
 
 ```text
 \
 ```
 
-the backslash.
+not:
+
+```text
+/
+```
 
 ---
 
-## ❌ Mistake 2 — Windows Paths
+### ❌ Incorrect Windows Path
 
-Wrong:
+Incorrect:
 
 ```c
 printf("C:\Users\Student");
 ```
-
-The compiler may interpret combinations such as `\U` specially or report an error.
 
 Correct:
 
@@ -1199,248 +429,51 @@ printf("C:\\Users\\Student");
 
 ---
 
-## ❌ Mistake 3 — Quotation Marks Inside Strings
+### ❌ Quotes Inside a String
 
-Wrong:
+Incorrect:
 
 ```c
-printf("He said "Hello"");
+printf("Welcome to "C Programming"");
 ```
 
 Correct:
 
 ```c
-printf("He said \"Hello\"");
+printf("Welcome to \"C Programming\"");
 ```
 
 ---
 
-## ❌ Mistake 4 — Confusing `'0'` and `'\0'`
-
-Wrong assumption:
+# 📌 Quick Reference
 
 ```text
-'0' == '\0'
-```
-
-They are different.
-
-```text
-'0'  → character zero
-
-'\0' → null character
-```
-
----
-
-## ❌ Mistake 5 — Confusing `\n` With `n`
-
-These are different:
-
-```text
-n
-```
-
-is a normal letter.
-
-```text
-\n
-```
-
-is a special new-line character.
-
----
-
-# 📋 22. Quick Reference
-
-## ⭐ Most Important Escape Sequences for Beginners
-
-```text
-┌───────────┬────────────────────────┐
-│ Sequence  │ Meaning                │
-├───────────┼────────────────────────┤
-│   \n      │ New Line               │
-│   \t      │ Horizontal Tab         │
-│   \\      │ Backslash              │
-│   \"      │ Double Quote           │
-│   \'      │ Single Quote           │
-│   \0      │ Null Character         │
-│   \r      │ Carriage Return        │
-│   \b      │ Backspace              │
-│   \a      │ Alert                  │
-│   \f      │ Form Feed              │
-│   \v      │ Vertical Tab           │
-└───────────┴────────────────────────┘
+┌──────────┬──────────────────────┐
+│ Sequence │ Meaning              │
+├──────────┼──────────────────────┤
+│   \n     │ New Line             │
+│   \t     │ Horizontal Tab       │
+│   \"     │ Double Quote         │
+│   \\     │ Backslash            │
+│   \'     │ Single Quote         │
+│   \0     │ Null Character       │
+└──────────┴──────────────────────┘
 ```
 
 ---
 
-# 🧠 Easy Memory Trick
+# 🏫 Small Exercise
 
-Remember these letters:
-
-```text
-n → New line
-
-t → Tab
-
-0 → Null character
-```
-
-And special characters:
+Write a C program that displays:
 
 ```text
-\\ → Backslash
+===== Student =====
 
-\" → Double quote
+Name:       Ali
+Course:     "C Programming"
 
-\' → Single quote
-```
-
-So:
-
-```text
-\n  → New Line
-
-\t  → Tab
-
-\\  → Backslash
-
-\"  → Double Quote
-
-\'  → Single Quote
-
-\0  → Null Character
-```
-
----
-
-# 🏫 23. Classroom Exercises
-
-## 🟢 Exercise 1 — Student Information
-
-Write a C program that produces:
-
-```text
-=================================
-       STUDENT INFORMATION
-=================================
-
-Name:           Ali
-Age:            22
-Course:         C Programming
-Institution:    Zealand Academy
-
-=================================
-```
-
-### Requirements
-
-Use:
-
-- `\n`
-- `\t`
-
----
-
-# 🟡 Exercise 2 — Quotation Marks
-
-Create a program that displays:
-
-```text
-My teacher said:
-
-"Practice programming every day."
-```
-
-### Requirements
-
-Use:
-
-- `\n`
-- `\"`
-
----
-
-# 🔵 Exercise 3 — Windows Path
-
-Write a C program that produces:
-
-```text
-My project is stored here:
-
-C:\Students\Programming\C\Project1
-```
-
-### Requirement
-
-Use:
-
-```text
-\\
-```
-
----
-
-# 🟣 Exercise 4 — Programming Languages
-
-Create the following output:
-
-```text
-Programming Languages
-
-1. C
-2. C++
-3. Python
-4. Java
-```
-
-Use several:
-
-```text
-\n
-```
-
-escape sequences.
-
----
-
-# 🟠 Exercise 5 — Product Table
-
-Create:
-
-```text
-Product         Price
-Laptop          8000
-Mouse           200
-Keyboard        500
-```
-
-Use:
-
-```text
-\t
-```
-
-to organize the output.
-
----
-
-# 🔴 Exercise 6 — Combined Escape Sequences
-
-Write a program that produces:
-
-```text
-*********************************
-
-Student:        Ali
-Course:         "C Programming"
-Folder:         C:\Courses\C
-
-Message:
-"Welcome to C Programming!"
-
-*********************************
+Project Folder:
+C:\Programming\Project1
 ```
 
 Try to use:
@@ -1454,77 +487,37 @@ Try to use:
 
 ---
 
-# 🤖 Exercise 7 — Robot Information
+# 🎯 Summary
 
-Create a C program that prints:
+Escape sequences allow us to include **special characters and formatting** inside C strings.
 
-```text
-========== ROBOT STATUS ==========
-
-Robot:          TurboPi
-Battery:        95%
-Distance:       35 cm
-Camera:         "Active"
-Motor:          "Running"
-
-Project Folder:
-C:\Robot\TurboPi
-
-==================================
-```
-
-Use:
-
-- `\n`
-- `\t`
-- `\"`
-- `\\`
-
----
-
-# 🎯 24. Summary
-
-Escape sequences are essential when formatting text in C.
-
-They allow us to represent special characters and control terminal output.
-
-The most important ones to remember are:
-
-| Sequence | Meaning |
-|---|---|
-| `\n` | New Line |
-| `\t` | Tab |
-| `\\` | Backslash |
-| `\"` | Double Quote |
-| `\'` | Single Quote |
-| `\0` | Null Character |
-
----
-
-# 🧩 Final Visual Summary
+The most important ones are:
 
 ```text
-                    ESCAPE SEQUENCES
-                           │
-          ┌────────────────┼─────────────────┐
-          │                │                 │
-          ▼                ▼                 ▼
-      Formatting        Symbols          Strings
-          │                │                 │
-     ┌────┴────┐      ┌────┴────┐           │
-     │         │      │         │           │
-     ▼         ▼      ▼         ▼           ▼
-    \n        \t     \"        \\          \0
-     │         │      │         │           │
-     ▼         ▼      ▼         ▼           ▼
- New Line     Tab    Quote    Backslash  End of String
+\n  → New Line
+
+\t  → Tab
+
+\"  → Double Quote
+
+\\  → Backslash
+
+\'  → Single Quote
+
+\0  → End of String
 ```
 
----
+## 🔑 Key Idea
 
-# 🔑 Key Concept
+Whenever you see:
 
-> **An escape sequence in C begins with a backslash `\` and tells the compiler that the following character has a special meaning.**
+```text
+\
+```
+
+inside a C string, think:
+
+> **Something special is coming next.**
 
 For example:
 
@@ -1532,22 +525,17 @@ For example:
 printf("Hello\nWorld");
 ```
 
-can be understood as:
+means:
 
 ```text
-Print "Hello"
-      │
-      ▼
-Encounter \n
-      │
-      ▼
-Move to next line
-      │
-      ▼
-Print "World"
+Print Hello
+    ↓
+Go to next line
+    ↓
+Print World
 ```
 
-Final output:
+Output:
 
 ```text
 Hello
@@ -1556,46 +544,17 @@ World
 
 ---
 
-# 🚀 Where Escape Sequences Are Used
+## 🚀 Final Takeaway
 
-You will frequently encounter escape sequences when working with:
+Escape sequences are small, but they are very important in C programming.
 
-- 💻 Console applications
-- 📁 File paths
-- 📝 Text files
-- 📊 Formatted output
-- 🔤 Strings
-- 🧠 Character arrays
-- 🔌 Embedded systems
-- 🤖 Robotics
-- 🌐 Network programs
-- 🐧 Linux programming
-- 🍓 Raspberry Pi programming
+You will use them regularly when working with:
 
-Understanding escape sequences is therefore an important foundation for becoming comfortable with **C programming**.
-
----
-
-## 🎓 Final Takeaway
-
-When you see:
-
-```text
-\
-```
-
-inside a C string, think:
-
-> 🚦 **"Something special is coming next."**
-
-For example:
-
-```text
-\n → New line
-\t → Tab
-\" → "
-\\ → \
-\0 → End of string
-```
-
-Once this idea becomes familiar, reading and writing formatted C programs becomes much easier.
+- Console output
+- Strings
+- File paths
+- Formatted tables
+- Text files
+- Embedded systems
+- Raspberry Pi
+- Robotics
