@@ -1,4 +1,4 @@
-# Personoplysninger i C
+# Personoplysninger i C (Scanf_s funktioner)
 
 Dette program beder brugeren om at indtaste:
 
