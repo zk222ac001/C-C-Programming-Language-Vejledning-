@@ -23,6 +23,7 @@ Du skal øve tastaturinput med `_getch()`, betingelser med `if-else` og gentagel
 
 4. Accepter både små og store bogstaver.
 5. Fortsæt med at læse tastetryk, indtil brugeren trykker **Q**.
+6. Brug Sentinal Controlled Loop ( Stopper program hvis du vil gerne have stopper)
 
 ## Test
 
