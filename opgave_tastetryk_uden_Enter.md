@@ -10,7 +10,7 @@ Du skal øve tastaturinput med `_getch()`, betingelser med `if-else` og gentagel
 
 1. Vis en vejledning med de tilgængelige taster.
 2. Brug `_getch()` fra `<conio.h>` til at læse tastetryk.
-3. Brug `if`, `else if` og `else` til følgende handlinger:
+3. Brug `if`, `else if` og `else` eller Switch statment til følgende handlinger:
 
 | Tast | Besked |
 |---|---|
