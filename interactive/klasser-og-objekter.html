@@ -1,0 +1,612 @@
+<!doctype html><html lang="da"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Dansk OOP-lab med syv øvelser, animerede forklaringer og C++-eksempler."><title>Klasser og objekter · C++ lab</title><style>
+:root{color-scheme:light;--muted:#e7eeea;--border:#cbd8d1;--viz-series-1:#187363;--ink:#163d38;--paper:#f7f6f1;--accent:#e9b66c}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.65 system-ui,sans-serif}a{color:#126b65;text-underline-offset:4px}a:hover{text-decoration-thickness:3px}.skip{position:absolute;top:-100px}.skip:focus{top:10px;background:white;padding:10px;z-index:5}.shell{max-width:1120px;padding:0 28px;margin:auto}header{border-bottom:1px solid var(--border);padding:20px 0}header .shell{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.wordmark{font-weight:750;letter-spacing:.04em}.wordmark span{color:#746344}nav{display:flex;gap:24px;flex-wrap:wrap}nav a{text-decoration:none}.hero{padding:66px 0 38px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}.eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.15em;color:#716047;font-weight:700}h1{font-size:clamp(36px,5vw,58px);line-height:1.1;letter-spacing:-.045em;margin:18px 0 24px}h2{line-height:1.2;font-size:32px;letter-spacing:-.025em}h3{font-size:22px;line-height:1.3}p{margin:16px 0}.hero p{max-width:540px;color:#46605b}.hero .cta{display:inline-block;background:var(--ink);color:white;padding:12px 22px;border-radius:8px;text-decoration:none}.diagram{padding:28px;background:#e5eee8;border-radius:18px}.diagram .type{background:var(--ink);color:white;border-radius:10px;padding:20px}.diagram .caption{font-size:14px;color:#46605b}.object-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}.obj{background:#fffdf7;border:1px solid var(--border);padding:16px;border-radius:10px}.obj strong{display:block}.journey{display:flex;gap:10px;flex-wrap:wrap;padding:20px 0 38px;color:#46605b}.journey span{padding:6px 12px;border:1px solid var(--border);border-radius:30px;font-size:14px}#laboratorium{scroll-margin-top:20px;background:white;border:1px solid var(--border);border-radius:18px;padding:30px;margin:14px 0 50px;box-shadow:0 10px 35px #163d3807}.lab-note{font-size:14px;color:#53655f;margin-top:0}.btn,button{font:inherit;font-size:15px;border:1px solid #b6c9bf;background:#f4f7f4;color:var(--ink);border-radius:7px;padding:10px 15px;cursor:pointer;min-height:44px;white-space:normal}.btn:hover,button:hover{background:#e3eee7}.btn-primary{background:var(--ink);color:white}.btn-primary:hover{background:#275c51}button:disabled{opacity:.45;cursor:default}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #b0792a;outline-offset:3px}.viz-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.viz-controls{display:flex;flex-wrap:wrap;gap:18px}.form-label{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;flex:1 1 180px;min-width:0}.form-control,.form-select{font:inherit;background:white;border:1px solid #a3bcb0;color:var(--ink);padding:9px 12px;border-radius:6px;min-width:0;max-width:100%;width:100%}pre{font:15px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;background:#edf3ef;border-left:3px solid #398c76;border-radius:0 8px 8px 0;padding:20px;white-space:pre-wrap;overflow-wrap:anywhere}code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em}pre code{font-size:inherit}.table,table{border-collapse:collapse;width:100%;margin:16px 0;font-size:15px;table-layout:fixed}th,td{text-align:left;border-bottom:1px solid var(--border);padding:10px 9px;overflow-wrap:anywhere}th{background:#f0f4ee}#feedback{border-left:3px solid #c28e44;padding-left:14px;min-height:36px}summary{cursor:pointer;min-height:44px;padding:8px 0;font-weight:650}details{border-bottom:1px solid var(--border);padding:8px 0}.article{max-width:900px;margin:0 auto 60px}.article h1{font-size:38px}.article h2{margin-top:42px}.article img{width:100%;height:auto;border-radius:10px}.article blockquote{margin:22px 0;padding:8px 20px;border-left:3px solid #b78a4c;background:#f2eee3}.animation{margin:26px 0}.animation figcaption{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:14px}.animation-toggle[aria-pressed=true]{background:var(--ink);color:white}footer{padding:25px 0 40px;border-top:1px solid var(--border);font-size:14px;color:#53655f}.progress-note{font-size:14px}#stage{animation:enter .2s ease-out}@keyframes enter{from{opacity:.6;transform:translateY(5px)}to{opacity:1;transform:none}}@media(max-width:720px){.shell{padding:0 16px}.hero{grid-template-columns:1fr;padding-top:32px;gap:20px}#laboratorium{padding:18px}.heading{padding-right:0!important}h2{font-size:27px}.article table{font-size:13px}th,td{padding:8px 5px}pre{padding:14px;font-size:13px}.diagram{padding:20px}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}@media print{button,nav,#laboratorium,.journey,.cta{display:none!important}.hero{display:block}.article{max-width:none}details{display:block}pre{break-inside:avoid}}
+</style></head><body><a class="skip" href="#laboratorium">Spring til øvelserne</a><header><div class="shell"><div class="wordmark">C++ <span>/ VISUEL LÆRING</span></div><nav aria-label="Indhold"><a href="#laboratorium">Interaktivt lab</a><a href="#artikel">Læs artiklen</a><a href="../Program_6_klasser-og-Objekter-i-cpp.md">Markdown</a></nav></div></header><main class="shell"><section class="hero"><div><div class="eyebrow">Program 6 · objektorienteret programmering</div><h1>Klasser og<br>objekter i C++</h1><p>Opret en planet. Ændr dens data. Se, hvorfor de andre objekter beholder deres værdier. Lær gennem syv små forsøg med feedback.</p><a class="cta" href="#laboratorium">Start med klasse og objekt</a></div><div class="diagram" role="img" aria-label="Klassen Planet beskriver navn og antal måner. To objekter har forskellige værdier: Jorden har én måne, Mars har to."><div class="caption">FÆLLES BESKRIVELSE</div><div class="type"><strong>class Planet</strong><br><code>navn · antalMaaner</code></div><div class="caption" style="margin-top:20px">EGNE VÆRDIER I HVERT OBJEKT</div><div class="object-row"><div class="obj"><strong>jorden</strong><code>"Jorden"<br>måner: 1</code></div><div class="obj"><strong>mars</strong><code>"Mars"<br>måner: 2</code></div></div></div></section><div class="journey" aria-label="Arbejdsgang"><span>1. Læs forklaringen</span><span>2. Forudsig resultatet</span><span>3. Afprøv opgaven</span><span>4. Forklar ændringen</span></div><section id="laboratorium" aria-label="Interaktivt OOP-laboratorium"><p class="lab-note">Simulation af C++ · ingen compiler · data gemmes kun i denne åbne fane. Opgaverne er selvstændige; lab 5 starter med Mars på 2 måner.</p><div id="cpp-workshop">
+<style>
+#cpp-workshop pre{white-space:pre-wrap;overflow-wrap:anywhere;margin:18px 0}#cpp-workshop .space{margin:18px 0}#cpp-workshop .heading{padding-right:95px}#cpp-workshop .bar{height:22px;background:var(--muted);margin:6px 0 16px}#cpp-workshop .fill{height:100%;background:var(--viz-series-1);transition:width .2s}#cpp-workshop .label-row{display:flex;justify-content:space-between;gap:12px}#cpp-workshop .outputs{min-height:30px;margin-top:14px}#cpp-workshop .columns{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:24px}#cpp-workshop th,#cpp-workshop td{overflow-wrap:anywhere}@media(prefers-reduced-motion:reduce){#cpp-workshop .fill{transition:none}}
+</style>
+<div class="viz-row heading"><button type="button" class="btn" id="back">Forrige lab</button><span id="step"></span><button type="button" class="btn btn-primary" id="forward">Næste lab</button></div>
+<h2 id="title"></h2>
+<div id="intro" class="space"></div>
+<div id="stage"></div>
+<hr>
+<h3 id="task"></h3>
+<div id="exercise"></div>
+<div id="feedback" class="outputs" aria-live="polite"></div>
+<details class="space"><summary>Vis hint</summary><div id="hint" class="space"></div></details>
+<div class="viz-row"><button type="button" class="btn" id="reset">Start denne lab forfra</button><span id="completed" aria-live="polite"></span></div>
+</div>
+<script>
+(()=>{
+const root=document.getElementById('cpp-workshop'),q=s=>root.querySelector(s);let lab=0;const done=new Set();
+const state={planets:[{id:'merkur',name:'Merkur',moons:0},{id:'jorden',name:'Jorden',moons:1},{id:'mars',name:'Mars',moons:2}],created:null,selected:2,speeds:[0,0],age:[22,24],readCalls:0,privateAttempt:false,privateSpeed:0};
+const titles=['Klasse og objekter','Constructor: opret Venus','Egne data i hvert objekt','Metoder ændrer objektets tilstand','const: læs uden at ændre','Din egen klasse: Studerende','Indkapsling: public og private'];
+const intros=['Klassen Planet beskriver strukturen. Hvert Planet-objekt har sit eget navn og antal måner.','En constructor kører ved oprettelsen og giver objektet startværdier.','Punktummet vælger et medlem i ét bestemt objekt. En ændring af Mars ændrer ikke Jorden.','accelerer() lægger 10 til hastigheden i den bil, du kalder metoden på.','En const-metode kan læse objektets data, men må ikke ændre dets almindelige medlemsvariabler.','Samme mønster: en klasse, flere objekter og en metode, der ændrer ét objekts data.','private beskytter den direkte adgang. En public-metode kan ændre klassens egne private data.'];
+const tasks=['Opgave: Hvor mange Planet-objekter er vist?','Opgave: Opret Venus med 0 måner og afstand 108.2','Opgave: Giv kun Mars testværdien 5 måner','Opgave: Få bil1 op på 30 km/t og bil2 på 10 km/t','Opgave: Kald harMaaner() to gange uden at ændre data','Opgave: Gør Anna 23 år, og behold Ali på 24 år','Opgave: Prøv direkte adgang, og brug derefter metoden'];
+const hints=['Planet er klassen. Tæl merkur, jorden og mars.','Navn: Venus. Måner: 0. Afstand: 108.2. Constructoren får værdierne i denne rækkefølge.','Vælg mars, skriv 5, og anvend ændringen. De oprindelige værdier er 0, 1 og 2.','Klik tre gange på bil1.accelerer() og én gang på bil2.accelerer().','Kaldet returnerer true, fordi Mars har 2 måner. Antallet skal stadig være 2 efter begge kald.','harFoedselsdag() øger alder med 1. Kald kun metoden på Anna.','Prøv først bil.hastighed = 100. Brug derefter bil.accelerer(). Kun metodekaldet må ændre hastigheden.'];
+function el(tag,text,cls){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e}
+function code(parent,text){const p=el('pre');p.append(el('code',text));parent.append(p)}
+function button(parent,label,fn){const b=el('button',label,'btn');b.type='button';b.onclick=fn;parent.append(b);return b}
+function feedback(ok,message){q('#feedback').textContent=(ok?'✓ ':'')+message;if(ok)done.add(lab);q('#completed').textContent=`${done.size} af 7 opgaver løst`}
+function field(parent,label,value,type='text'){const l=el('label',undefined,'form-label');l.append(el('span',label));const i=el('input',undefined,'form-control');i.type=type;i.value=value;if(type==='number')i.step='any';l.append(i);parent.append(l);return i}
+function table(parent,headers,rows){const t=el('table',undefined,'table');const head=el('thead'),hr=el('tr');headers.forEach(x=>hr.append(el('th',x)));head.append(hr);t.append(head);const body=el('tbody');rows.forEach(r=>{const tr=el('tr');r.forEach(x=>tr.append(el('td',String(x))));body.append(tr)});t.append(body);parent.append(t)}
+function bars(parent,labels,values,max,unit){labels.forEach((name,i)=>{const row=el('div',undefined,'label-row');row.append(el('span',name),el('span',`${values[i]} ${unit}`,'tabular-nums'));const track=el('div',undefined,'bar'),fill=el('div',undefined,'fill');fill.style.width=values[i]/max*100+'%';track.append(fill);parent.append(row,track)})}
+function draw(){root.dataset.lab=lab;q('#step').textContent=`Lab ${lab+1} / 7`;q('#title').textContent=titles[lab];q('#intro').textContent=intros[lab];q('#task').textContent=tasks[lab];q('#hint').textContent=hints[lab];q('#feedback').textContent='';q('#completed').textContent=`${done.size} af 7 opgaver løst`;q('details').open=false;q('#back').disabled=lab===0;q('#forward').disabled=lab===6;const s=q('#stage'),e=q('#exercise');s.replaceChildren();e.replaceChildren();
+if(lab===0){code(s,'class Planet {\npublic:\n    std::string navn;\n    int antalMaaner;\n};');table(s,['Objekt','Klasse','navn','antalMaaner'],state.planets.map(p=>[p.id,'Planet',p.name,p.moons]));const a=field(e,'Antal objekter','', 'number');a.min=0;a.step=1;button(e,'Tjek svar',()=>feedback(a.value.trim()!==''&&Number(a.value)===3,Number(a.value)===3?'Rigtigt. Tre objekter deler én klassedefinition.':'Tæl objekterne i tabellen. Klassen selv tæller ikke som et objekt.'));}
+if(lab===1){code(s,'Planet(std::string n, int m, double a)\n    : navn(n), antalMaaner(m),\n      afstandTilSolen(a) {}');if(state.created){table(s,['Objekt','navn','Måner','Mio. km'],[['venus',state.created.name,state.created.moons,state.created.distance]])}const controls=el('div',undefined,'viz-controls');e.append(controls);const n=field(controls,'navn',state.created?.name || 'Venus'),m=field(controls,'antalMaaner',state.created?.moons ?? '', 'number'),a=field(controls,'afstandTilSolen (mio. km)',state.created?.distance ?? '', 'text');n.maxLength=40;button(e,'Opret objekt',()=>{const distance=Number(a.value.replace(',','.'));if(!n.value.trim()||!m.value.trim()||!a.value.trim()||!Number.isInteger(Number(m.value))||Number(m.value)<0||Number(m.value)>99||!Number.isFinite(distance)||distance<0){feedback(false,'Indtast navn, et heltal fra 0 til 99 for måner og en gyldig afstand.');return}state.created={name:n.value.trim(),moons:Number(m.value),distance};s.replaceChildren();code(s,`Planet venus(${JSON.stringify(state.created.name)}, ${state.created.moons}, ${distance});`);table(s,['Objekt','navn','Måner','Mio. km'],[['venus',state.created.name,state.created.moons,distance]]);feedback(n.value.trim().toLowerCase()==='venus'&&Number(m.value)===0&&distance===108.2,'Objektet er oprettet. '+(n.value.trim().toLowerCase()==='venus'&&Number(m.value)===0&&distance===108.2?'Alle tre startværdier er korrekte.':'Sammenlign startværdierne med opgaven.'))});}
+if(lab===2){const view=el('div');s.append(view);const plot=()=>{view.replaceChildren();bars(view,state.planets.map(p=>p.name),state.planets.map(p=>p.moons),Math.max(5,...state.planets.map(p=>p.moons)),'måner')};plot();const controls=el('div',undefined,'viz-controls');e.append(controls);const l=el('label','Objekt','form-label'),select=el('select',undefined,'form-select');state.planets.forEach((p,i)=>{const o=el('option',p.id);o.value=i;select.append(o)});select.value=state.selected;l.append(select);controls.append(l);const v=field(controls,'Ny testværdi',state.planets[state.selected].moons,'number');select.onchange=()=>{state.selected=Number(select.value);v.value=state.planets[state.selected].moons};const out=el('div');s.append(out);button(e,'Anvend ændring',()=>{if(v.value.trim()===''||!Number.isInteger(Number(v.value))||Number(v.value)<0||Number(v.value)>99){feedback(false,'Brug et heltal fra 0 til 99.');return}const p=state.planets[Number(select.value)];p.moons=Number(v.value);out.replaceChildren();code(out,`${p.id}.antalMaaner = ${p.moons};`);plot();const ok=state.planets[0].moons===0&&state.planets[1].moons===1&&state.planets[2].moons===5;feedback(ok,ok?'Kun Mars har ændret værdi. Jorden har stadig 1 måne.':'Kontrollér alle tre objekter. Målet er Merkur 0, Jorden 1 og Mars 5.');});}
+if(lab===3){code(s,'void accelerer() {\n    hastighed += 10;\n}');const chart=el('div');s.append(chart);const plot=()=>{chart.replaceChildren();bars(chart,['bil1 · Toyota','bil2 · Volvo'],state.speeds,Math.max(40,...state.speeds),'km/t')};plot();const controls=el('div',undefined,'viz-row');e.append(controls);[0,1].forEach(i=>button(controls,`bil${i+1}.accelerer()`,()=>{state.speeds[i]+=10;plot();const ok=state.speeds[0]===30&&state.speeds[1]===10;feedback(ok,ok?'Opgaven er løst. De to biler har uafhængige hastigheder.':`Kun bil${i+1} ændrede hastighed. Målet er 30 og 10 km/t.`)}));}
+if(lab===4){code(s,'Planet mars("Mars", 2, 227.9);\n\nbool harMaaner() const {\n    return antalMaaner > 0;\n}');table(s,['Objekt','antalMaaner før','antalMaaner efter'],[['mars',2,2]]);const calls=el('div',`${state.readCalls} kald`,'space');s.append(calls);button(e,'Kald mars.harMaaner()',()=>{state.readCalls++;calls.textContent=`${state.readCalls} kald · resultat: true · antalMaaner: 2`;feedback(state.readCalls>=2,state.readCalls>=2?'Begge kald læser værdien 2. Objektets data er uændrede.':'Første kald returnerer true. Kald metoden igen.');});}
+if(lab===5){code(s,'void harFoedselsdag() {\n    ++alder;\n}\n\nStuderende anna("Anna", 22, "IT");\nStuderende ali("Ali", 24, "IT");');const view=el('div');s.append(view);const display=()=>{view.replaceChildren();table(view,['Objekt','navn','alder'],[['anna','Anna',state.age[0]],['ali','Ali',state.age[1]]])};display();const controls=el('div',undefined,'viz-row');e.append(controls);['anna','ali'].forEach((n,i)=>button(controls,`${n}.harFoedselsdag()`,()=>{state.age[i]++;display();const ok=state.age[0]===23&&state.age[1]===24;feedback(ok,ok?'Anna er nu 23. Ali er stadig 24. Samme klasse, egne data.':'Metoden ændrede kun '+n+'. Målet er Anna 23 og Ali 24.')}));}
+if(lab===6){code(s,'class Bil {\nprivate:\n    int hastighed = 0;\npublic:\n    void accelerer() { hastighed += 10; }\n};');const value=el('div','hastighed = '+state.privateSpeed+' km/t','space');s.append(value);const row=el('div',undefined,'viz-row');e.append(row);button(row,'bil.hastighed = 100;',()=>{state.privateAttempt=true;feedback(false,'Compileren ville afvise direkte adgang fra main(): hastighed er private. Værdien er uændret.');});button(row,'bil.accelerer();',()=>{state.privateSpeed+=10;value.textContent='hastighed = '+state.privateSpeed+' km/t';feedback(state.privateAttempt,state.privateAttempt?'Metoden er public og må ændre de private data. Direkte adgang blev afvist.':'Metoden ændrede hastigheden. Prøv også den direkte adgang for at se forskellen.');});}
+
+}
+q('#back').onclick=()=>{lab--;draw()};q('#forward').onclick=()=>{lab++;draw()};q('#reset').onclick=()=>{done.delete(lab);if(lab===1)state.created=null;if(lab===2)state.planets.forEach((p,i)=>p.moons=i);if(lab===3)state.speeds=[0,0];if(lab===4)state.readCalls=0;if(lab===5)state.age=[22,24];if(lab===6){state.privateAttempt=false;state.privateSpeed=0;}draw()};draw();
+})();
+</script>
+</section><section id="artikel" class="article" aria-label="Den fulde artikel"><h1>Klasser og objekter i C++</h1>
+<p><em>En begyndervenlig artikel med animerede illustrationer, programmer og øvelser.</em></p>
+<p>Når et program bliver større, har vi brug for at holde styr på ting, der både har oplysninger og kan udføre handlinger. En planet har eksempelvis et navn og et antal måner. En bil har en hastighed, og den kan accelerere. En studerende har en alder, som ændrer sig, når personen har fødselsdag.</p>
+<p>I C++ kan vi samle sådanne oplysninger og handlinger i <strong>klasser</strong>. Når vi bruger en klasse til at skabe en konkret planet, bil eller studerende i programmet, får vi et <strong>objekt</strong>.</p>
+<p>Artiklen begynder med planeter og bygger gradvist videre til constructors, metoder og adgangskontrol. Til sidst kan du afprøve forståelsen med opgaver og løsningsforslag.</p>
+<h2>Sådan bruger du materialet</h2>
+<p><strong><a href="#laboratorium">Åbn filen til det interaktive OOP-lab</a></strong></p>
+<p>GitHubs filvisning viser HTML som kildekode. For at bruge knapperne: vælg <strong>Code → Download ZIP</strong>, pak repositoryet ud, og åbn <code>interactive/klasser-og-objekter.html</code> i din browser. Labbet kører lokalt uden installation og uden internet. Det simulerer C++-kodens virkning; det er ikke en C++-compiler.</p>
+<table>
+<thead>
+<tr>
+<th>Her i artiklen</th>
+<th>I det interaktive lab</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Animerede GIF-billeder og forklarende diagrammer</td>
+<td>Ændr objekter og se data opdatere</td>
+</tr>
+<tr>
+<td>Komplette C++-programmer</td>
+<td>Constructor med egne startværdier</td>
+</tr>
+<tr>
+<td>Fold-ud-løsninger til opgaverne</td>
+<td>Syv opgaver med hint og feedback</td>
+</tr>
+<tr>
+<td>Tekstforklaringer til alle billeder</td>
+<td>Start/stop af animationer og nulstilling af øvelser</td>
+</tr>
+</tbody></table>
+<p><strong>Forslag til undervisning:</strong> Læs ét afsnit, forudsig resultatet, afprøv det i labbet, og forklar resultatet til en makker. Gem gerne en ændret udgave af de <a href="../examples/program-6">komplette kodeeksempler</a>.</p>
+<h3>OOP betyder objektorienteret programmering</h3>
+<p>OOP samler data og adfærd i objekter. Denne artikel arbejder især med klasser, objekter og indkapsling. Abstraktion er også med: vi bruger en lille model af en planet eller bil og vælger kun de egenskaber, opgaven kræver.</p>
+<table>
+<thead>
+<tr>
+<th>Begreb</th>
+<th>Konkret betydning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Klasse</td>
+<td>Beskriver struktur og metoder, fx <code>Planet</code></td>
+</tr>
+<tr>
+<td>Objekt</td>
+<td>En konkret instans, fx <code>mars</code></td>
+</tr>
+<tr>
+<td>Abstraktion</td>
+<td>Planet-modellen viser navn, måner og afstand, men udelader andre detaljer</td>
+</tr>
+<tr>
+<td>Indkapsling</td>
+<td><code>Bil</code> beskytter hastigheden med <code>private</code> og giver adgang gennem metoder</td>
+</tr>
+<tr>
+<td>Arv (næste trin)</td>
+<td>En klasse kan bygge på en anden klasse</td>
+</tr>
+<tr>
+<td>Polymorfi (næste trin)</td>
+<td>En fælles grænseflade kan give forskellig adfærd, fx gennem virtuelle metoder</td>
+</tr>
+</tbody></table>
+<p>Arv og polymorfi kræver egne eksempler og er ikke nødvendige for at løse dette labs opgaver.</p>
+<blockquote>
+<p><strong>Billeder:</strong> GIF-filerne nedenfor animerer automatisk. De tilsvarende stillbilleder og tekstforklaringer giver samme faglige indhold uden bevægelse. I labbet bestemmer du selv, om animationerne kører.</p>
+</blockquote>
+<h2>1. Hvad er en klasse?</h2>
+<p>En klasse beskriver en type, som vi selv definerer. Du kender måske allerede de indbyggede typer <code>int</code> og <code>double</code>. Med <code>class</code> kan du definere en ny type som <code>Planet</code>.</p>
+<p>Forestil dig et tomt skema med felterne navn, antal måner og afstand til Solen. Skemaets opbygning svarer til klassen. Et udfyldt skema for Mars svarer til et objekt.</p>
+<p>En enkel klasse kan se sådan ud:</p>
+<pre><code class="language-cpp">class Planet
+{
+public:
+    std::string navn;
+    int antalMaaner = 0;
+    double afstandTilSolen = 0.0;
+};
+</code></pre>
+<p><code>navn</code>, <code>antalMaaner</code> og <code>afstandTilSolen</code> er <strong>medlemsvariabler</strong>. De beskriver de data, hvert objekt har. <code>std::string</code> gemmer tekst, <code>int</code> gemmer et heltal, og <code>double</code> gemmer et decimaltal.</p>
+<p>Startværdierne <code>0</code> og <code>0.0</code> gør de numeriske medlemmer veldefinerede, når vi opretter et objekt uden andre startværdier. En standardoprettet <code>std::string</code> er tom. Afstanden <code>0.0</code> er her en startværdi i programmet, ikke en oplysning om en virkelig planet.</p>
+<p>Klassen slutter med <code>};</code>. Semikolonet efter klammen er nødvendigt i C++.</p>
+<h2>2. Hvad er et objekt?</h2>
+<p>Et objekt er en konkret instans af en type. Når vi skriver:</p>
+<pre><code class="language-cpp">Planet mars;
+</code></pre>
+<p>opretter vi et objekt med navnet <code>mars</code> og typen <code>Planet</code>. Derefter kan vi give det værdier:</p>
+<pre><code class="language-cpp">mars.navn = &quot;Mars&quot;;
+mars.antalMaaner = 2;
+mars.afstandTilSolen = 227.9;
+</code></pre>
+<p>Punktummet betyder, at vi vælger et medlem i et bestemt objekt. <code>mars.navn</code> er derfor navnefeltet i objektet <code>mars</code>.</p>
+<p>Der er forskel på <code>mars</code> og <code>&quot;Mars&quot;</code>. Det første er et navn, vi bruger i kildekoden. Det andet er en tekstværdi, som programmet gemmer i objektet. Vi kunne godt kalde objektet <code>planet1</code> og stadig gemme teksten <code>&quot;Mars&quot;</code> i det.</p>
+<table>
+<thead>
+<tr>
+<th>Kode</th>
+<th>Betydning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Planet</code></td>
+<td>Klassen og typen</td>
+</tr>
+<tr>
+<td><code>mars</code></td>
+<td>Navnet på et bestemt objekt</td>
+</tr>
+<tr>
+<td><code>&quot;Mars&quot;</code></td>
+<td>En tekstværdi</td>
+</tr>
+<tr>
+<td><code>mars.antalMaaner</code></td>
+<td>En medlemsvariabel i objektet</td>
+</tr>
+<tr>
+<td><code>mars.visInfo()</code></td>
+<td>Et kald til objektets metode, når metoden er defineret</td>
+</tr>
+</tbody></table>
+<h2>3. Hvorfor er Planet en bedre klasse end Univers?</h2>
+<p>Merkur, Jorden og Mars <strong>er planeter</strong>. Derfor er <code>Planet</code> en passende fælles klasse for dem.</p>
+<p>Universet <strong>indeholder planeter</strong>. Det er en anden relation. Hvis vi laver klassen <code>Univers</code>, vil et objekt af den klasse repræsentere et helt univers. Det kunne senere indeholde en samling af <code>Planet</code>-objekter.</p>
+<p>Når du vælger klasser, hjælper spørgsmålet: »Hvilken slags ting er dette objekt?« Mars er en planet. En Toyota er en bil. Anna er en studerende. De svar giver os forslag til klasserne <code>Planet</code>, <code>Bil</code> og <code>Studerende</code>.</p>
+<h3>Klassens struktur som diagram</h3>
+<p><strong>Planet</strong>: navn, antalMaaner, afstandTilSolen, visInfo() og harMaaner().</p>
+<p>Diagrammet viser en klasse med data og metoder. Plus-tegnet betyder offentlig adgang (<code>public</code>). Det viser ikke de konkrete værdier i et objekt. Dem ser du i animationen nedenfor.</p>
+<h2>4. Samme klasse, forskellige data</h2>
+<p>Vi kan oprette mange objekter fra den samme klasse. De almindelige, ikke-statiske medlemsvariabler tilhører hvert sit objekt.</p>
+<p><figure class="animation"><img src="../assets/planet-objekter-still.png" data-still="../assets/planet-objekter-still.png" data-gif="../assets/planet-objekter.gif" alt="Animation: Planet-objekter oprettes, hvorefter kun Mars får en ny testværdi" loading="lazy"><figcaption><button type="button" class="animation-toggle" aria-pressed="false">Afspil animation</button><span>Du bestemmer, om billedet bevæger sig.</span></figcaption></figure></p>
+<p><a href="../assets/planet-objekter-still.png">Se samme figur uden animation</a>.</p>
+<p><em>Animationen er et skematisk billede af objekternes data, ikke et præcist kort over computerens hukommelse.</em></p>
+<p>Animationen viser først klassen, derefter objekterne <code>merkur</code>, <code>jorden</code> og <code>mars</code>. Til sidst ændres Mars&#39; antal måner fra 2 til den <strong>fiktive testværdi 5</strong>. Merkur beholder 0, og Jorden beholder 1. Vi ændrer en model i et program, ikke den virkelige planet.</p>
+<p>Det samme princip gælder denne kode:</p>
+<pre><code class="language-cpp">Planet jorden;
+jorden.antalMaaner = 1;
+
+Planet mars;
+mars.antalMaaner = 2;
+mars.antalMaaner = 5;
+</code></pre>
+<p>Efter den sidste linje er <code>jorden.antalMaaner</code> stadig <code>1</code>. Dette er en vigtig grund til at bruge objekter: Vi kan arbejde med én bestemt ting uden at blande dens data sammen med de andre tings data.</p>
+<h2>5. Metoder: funktioner, der tilhører klassen</h2>
+<p>En klasse kan også indeholde funktioner. De kaldes <strong>medlemsfunktioner</strong> eller <strong>metoder</strong>.</p>
+<p>Metoden <code>visInfo()</code> kan læse et objekts data og udskrive dem:</p>
+<pre><code class="language-cpp">void visInfo() const
+{
+    std::cout &lt;&lt; navn &lt;&lt; &quot; har &quot;
+              &lt;&lt; antalMaaner &lt;&lt; &quot; maaner.\n&quot;;
+}
+</code></pre>
+<p>Denne metode skal placeres inde i <code>Planet</code>-klassen i vores eksempel. Når vi skriver <code>mars.visInfo()</code>, bruger metoden værdierne i <code>mars</code>. Når vi skriver <code>jorden.visInfo()</code>, bruger den værdierne i <code>jorden</code>.</p>
+<p><code>void</code> betyder, at metoden ikke returnerer en værdi til den kode, der kalder den. Den udskriver tekst som sin handling.</p>
+<h2>6. Hvad betyder const?</h2>
+<p><code>const</code> efter en medlemsfunktions parameterliste fortæller, at funktionen ikke må ændre objektets almindelige medlemsvariabler gennem dette kald. Det er nyttigt for metoder, der kun skal læse oplysninger.</p>
+<pre><code class="language-cpp">bool harMaaner() const
+{
+    return antalMaaner &gt; 0;
+}
+</code></pre>
+<p>Metoden returnerer enten <code>true</code> eller <code>false</code>. Har objektet værdien <code>2</code> i <code>antalMaaner</code>, bliver resultatet <code>true</code>. Har det værdien <code>0</code>, bliver resultatet <code>false</code>.</p>
+<p>Et kald til <code>mars.harMaaner()</code> ændrer ikke antallet. Gentager vi kaldet, læser vi blot værdien igen. <code>const</code> gør ikke hele objektet permanent uforanderligt. Andre, ikke-const metoder kan stadig ændre det, hvis objektet tillader det.</p>
+<blockquote>
+<p>C++ har mere avancerede undtagelser, blandt andet medlemmer erklæret med <code>mutable</code>. De er ikke nødvendige i disse begynderøvelser.</p>
+</blockquote>
+<h2>7. Constructoren giver objektet en starttilstand</h2>
+<p>Det er besværligt at oprette et objekt og derefter udfylde alle felterne manuelt. En <strong>constructor</strong> gør det muligt at give startværdier, når objektet oprettes.</p>
+<pre><code class="language-cpp">Planet(std::string planetNavn, int maaner, double afstand)
+    : navn(planetNavn),
+      antalMaaner(maaner),
+      afstandTilSolen(afstand)
+{
+}
+</code></pre>
+<p>Constructoren hedder det samme som klassen. Den har ingen returtype, heller ikke <code>void</code>.</p>
+<p>Delen efter kolon er en <strong>initialiseringsliste</strong>. Her initialiserer <code>navn(planetNavn)</code> medlemmet <code>navn</code> med værdien fra parameteren <code>planetNavn</code>. De øvrige linjer gør det samme for de andre medlemmer. Medlemmer initialiseres i den rækkefølge, de er erklæret i klassen; vores liste følger samme rækkefølge.</p>
+<p>Nu kan vi skrive:</p>
+<pre><code class="language-cpp">Planet mars(&quot;Mars&quot;, 2, 227.9);
+</code></pre>
+<p>Kaldet giver constructoren tre argumenter. Constructoren bruger dem til at oprette et objekt med en meningsfuld starttilstand.</p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Parameter</th>
+<th>Medlemsvariabel</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&quot;Mars&quot;</code></td>
+<td><code>planetNavn</code></td>
+<td><code>navn</code></td>
+</tr>
+<tr>
+<td><code>2</code></td>
+<td><code>maaner</code></td>
+<td><code>antalMaaner</code></td>
+</tr>
+<tr>
+<td><code>227.9</code></td>
+<td><code>afstand</code></td>
+<td><code>afstandTilSolen</code></td>
+</tr>
+</tbody></table>
+<p>Når klassen kun har denne constructor med tre parametre, kan vi ikke længere skrive <code>Planet mars;</code>. Så skal vi enten give argumenterne eller også definere en constructor uden argumenter. Eksemplerne med manuel tildeling tidligere i artiklen brugte den første, enklere udgave af klassen.</p>
+<h2>8. Komplet program med planeter</h2>
+<p>Gem programmet som <code>planeter.cpp</code>. De angivne afstande er afrundede gennemsnitsværdier i millioner kilometer, ikke planeternes aktuelle afstande.</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+class Planet
+{
+public:
+    std::string navn;
+    int antalMaaner;
+    double afstandTilSolen;
+
+    Planet(std::string planetNavn, int maaner, double afstand)
+        : navn(planetNavn),
+          antalMaaner(maaner),
+          afstandTilSolen(afstand)
+    {
+    }
+
+    void visInfo() const
+    {
+        std::cout &lt;&lt; navn &lt;&lt; &quot; har &quot; &lt;&lt; antalMaaner
+                  &lt;&lt; &quot; maaner og en gennemsnitlig afstand paa &quot;
+                  &lt;&lt; afstandTilSolen &lt;&lt; &quot; millioner km.\n&quot;;
+    }
+
+    bool harMaaner() const
+    {
+        return antalMaaner &gt; 0;
+    }
+
+    bool erTaetterePaaSolenEndJorden() const
+    {
+        return afstandTilSolen &lt; 149.6;
+    }
+};
+
+int main()
+{
+    Planet merkur(&quot;Merkur&quot;, 0, 57.9);
+    Planet jorden(&quot;Jorden&quot;, 1, 149.6);
+    Planet mars(&quot;Mars&quot;, 2, 227.9);
+
+    merkur.visInfo();
+    jorden.visInfo();
+    mars.visInfo();
+
+    std::cout &lt;&lt; std::boolalpha;
+    std::cout &lt;&lt; &quot;Mars har maaner: &quot; &lt;&lt; mars.harMaaner() &lt;&lt; &#39;\n&#39;;
+    std::cout &lt;&lt; &quot;Merkur er taettere paa Solen end Jorden: &quot;
+              &lt;&lt; merkur.erTaetterePaaSolenEndJorden() &lt;&lt; &#39;\n&#39;;
+
+    return 0;
+}
+</code></pre>
+<p><code>#include &lt;string&gt;</code> giver adgang til <code>std::string</code>, og <code>#include &lt;iostream&gt;</code> giver blandt andet adgang til <code>std::cout</code>. Programmet starter i <code>main()</code>. <code>std::boolalpha</code> får boolske resultater til at blive vist som <code>true</code> og <code>false</code> i stedet for <code>1</code> og <code>0</code>.</p>
+<p>Programmet udskriver:</p>
+<pre><code class="language-text">Merkur har 0 maaner og en gennemsnitlig afstand paa 57.9 millioner km.
+Jorden har 1 maaner og en gennemsnitlig afstand paa 149.6 millioner km.
+Mars har 2 maaner og en gennemsnitlig afstand paa 227.9 millioner km.
+Mars har maaner: true
+Merkur er taettere paa Solen end Jorden: true
+</code></pre>
+<p>Den enkle udskriftsmetode bruger samme ordform for alle antal. Det holder fokus på programmeringskonceptet.</p>
+<h2>9. public og private</h2>
+<p>I Planet-eksemplet er medlemmerne <code>public</code>. Det betyder, at kode uden for klassen kan tilgå dem direkte. Derfor kan vi skrive <code>mars.antalMaaner = 5;</code> i <code>main()</code>.</p>
+<p><code>private</code> begrænser denne direkte adgang. Klassens egne metoder kan stadig arbejde med de private medlemmer. I en <code>class</code> er medlemmer private som udgangspunkt, indtil en anden adgangsspecifikation står i koden.</p>
+<p>Det er nyttigt, fordi klassen så kan kontrollere, hvordan dens tilstand ændres. En bil kan eksempelvis give adgang til <code>accelerer()</code> i stedet for at lade al kode skrive en vilkårlig hastighed direkte. Det kaldes <strong>indkapsling</strong>. Det er en regel i programmets opbygning, ikke kryptering eller beskyttelse mod alle mulige angreb.</p>
+<h2>10. Bil: en metode, der ændrer data</h2>
+<p>I næste program har hver bil sin egen private hastighed. Constructoren starter den på 0. Metoden <code>accelerer()</code> øger hastigheden med 10.</p>
+<p><figure class="animation"><img src="../assets/biler-metoder-still.png" data-still="../assets/biler-metoder-still.png" data-gif="../assets/biler-metoder.gif" alt="Animation: kald til accelerer ændrer kun den valgte bils hastighed" loading="lazy"><figcaption><button type="button" class="animation-toggle" aria-pressed="false">Afspil animation</button><span>Du bestemmer, om billedet bevæger sig.</span></figcaption></figure></p>
+<p><a href="../assets/biler-metoder-still.png">Se samme figur uden animation</a>.</p>
+<p>Animationen viser følgende rækkefølge:</p>
+<table>
+<thead>
+<tr>
+<th>Trin</th>
+<th>Kald</th>
+<th align="right">bil1</th>
+<th align="right">bil2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Start</td>
+<td>Begge objekter oprettes</td>
+<td align="right">0 km/t</td>
+<td align="right">0 km/t</td>
+</tr>
+<tr>
+<td>1</td>
+<td><code>bil1.accelerer()</code></td>
+<td align="right">10 km/t</td>
+<td align="right">0 km/t</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>bil1.accelerer()</code></td>
+<td align="right">20 km/t</td>
+<td align="right">0 km/t</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>bil2.accelerer()</code></td>
+<td align="right">20 km/t</td>
+<td align="right">10 km/t</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>bil1.accelerer()</code></td>
+<td align="right">30 km/t</td>
+<td align="right">10 km/t</td>
+</tr>
+</tbody></table>
+<p>Gem dette selvstændige program som <code>biler.cpp</code>:</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+class Bil
+{
+private:
+    std::string maerke;
+    int hastighed;
+
+public:
+    Bil(std::string bilMaerke)
+        : maerke(bilMaerke), hastighed(0)
+    {
+    }
+
+    void accelerer()
+    {
+        hastighed += 10;
+    }
+
+    int hentHastighed() const
+    {
+        return hastighed;
+    }
+
+    void visInfo() const
+    {
+        std::cout &lt;&lt; maerke &lt;&lt; &quot; koerer &quot;
+                  &lt;&lt; hastighed &lt;&lt; &quot; km/t.\n&quot;;
+    }
+};
+
+int main()
+{
+    Bil bil1(&quot;Toyota&quot;);
+    Bil bil2(&quot;Volvo&quot;);
+
+    bil1.accelerer();
+    bil1.accelerer();
+    bil2.accelerer();
+    bil1.accelerer();
+
+    bil1.visInfo();
+    bil2.visInfo();
+    return 0;
+}
+</code></pre>
+<p>Output:</p>
+<pre><code class="language-text">Toyota koerer 30 km/t.
+Volvo koerer 10 km/t.
+</code></pre>
+<p><code>accelerer()</code> har ikke <code>const</code>, fordi den ændrer hastigheden. <code>hentHastighed()</code> og <code>visInfo()</code> læser kun data og kan derfor være <code>const</code>.</p>
+<p>Prøver du at skrive <code>bil1.hastighed = 200;</code> i <code>main()</code>, giver compileren en adgangsfejl. Medlemmet er privat. Du må derimod kalde den offentlige metode <code>bil1.accelerer()</code>.</p>
+<p>Modellen er bevidst enkel. Den simulerer ikke tid, friktion eller en virkelig bils acceleration.</p>
+<h2>11. Sådan afprøver du programmerne</h2>
+<p>Hvert komplet program har sin egen <code>main()</code>. Gem dem i hver sin fil, og byg dem hver for sig. Læg ikke alle tre <code>main()</code>-funktioner i samme program.</p>
+<p>Hvis du har en C++-compiler som <code>g++</code>, kan du bygge det første eksempel med:</p>
+<pre><code class="language-bash">g++ -std=c++17 -Wall -Wextra -pedantic planeter.cpp -o planeter
+</code></pre>
+<p>På Linux, macOS eller WSL kører du derefter:</p>
+<pre><code class="language-bash">./planeter
+</code></pre>
+<p>I Windows med en tilgængelig <code>g++</code> kan du vælge <code>-o planeter.exe</code> og køre <code>./planeter.exe</code> i PowerShell. Bruger du Visual Studio, skal filen være en C++-fil med endelsen <code>.cpp</code> i et C++-projekt. En editor alene er ikke nødvendigvis en compiler.</p>
+<p>Erstat <code>planeter.cpp</code> med <code>biler.cpp</code> eller <code>studerende.cpp</code>, når du arbejder med de andre eksempler.</p>
+<h2>12. Øvelser: forudsig, afprøv og forklar</h2>
+<p>Brug det <a href="#laboratorium">interaktive lab</a> til at se resultaterne. Labbet har desuden en syvende opgave om <code>public</code> og <code>private</code>. Husk at downloade og åbne HTML-filen i en browser som beskrevet øverst.</p>
+<p>En god øvelse har tre dele. Først forudsiger du resultatet. Derefter kører du programmet. Til sidst forklarer du, hvorfor resultatet blev sådan.</p>
+<h3>Opgave 1: Klasse eller objekt?</h3>
+<p>Se på følgende kode:</p>
+<pre><code class="language-cpp">Planet planet1(&quot;Jorden&quot;, 1, 149.6);
+Planet planet2(&quot;Mars&quot;, 2, 227.9);
+</code></pre>
+<p>Hvad hedder klassen? Hvad hedder objekterne? Hvad er forskellen på <code>planet1</code> og <code>&quot;Jorden&quot;</code>? Hvor mange gange bliver constructoren kaldt?</p>
+<h3>Opgave 2: Opret Venus</h3>
+<p>Tilføj et objekt med navnet <code>venus</code>. Det skal have teksten <code>&quot;Venus&quot;</code>, 0 måner og afstanden 108.2. Kald <code>visInfo()</code>, og undersøg resultatet af <code>harMaaner()</code>.</p>
+<h3>Opgave 3: Ændr kun Mars</h3>
+<p>Giv <code>mars.antalMaaner</code> den fiktive testværdi 5. Vis derefter oplysninger om både Mars og Jorden. Hvilken værdi forventer du for Jordens måner? Forklar, hvorfor den ikke ændres.</p>
+<h3>Opgave 4: Gentagne læsninger</h3>
+<p>Kald <code>mars.harMaaner()</code> to gange. Kontroller antallet af måner før og efter. Forklar forskellen mellem at returnere et resultat og at ændre objektets tilstand.</p>
+<h3>Opgave 5: To biler</h3>
+<p>Start med to nye biler. Få <code>bil1</code> til at ende på 30 km/t og <code>bil2</code> på 10 km/t ved kun at bruge <code>accelerer()</code>. Prøv derefter en ekstra acceleration på <code>bil2</code>. Hvilke hastigheder forventer du nu?</p>
+<h3>Opgave 6: Din egen klasse</h3>
+<p>Lav klassen <code>Studerende</code> med navn, alder og uddannelse. Constructoren skal modtage startværdier til alle tre medlemmer. Lav en <code>visInfo()</code>-metode og en <code>harFoedselsdag()</code>-metode, som øger alderen med 1.</p>
+<p>Opret Anna på 22 år og Ali på 24 år. Kald kun <code>anna.harFoedselsdag()</code>. Kontroller, at Anna bliver 23, mens Ali stadig er 24.</p>
+<p><strong>Ekstra udfordring:</strong> Gør alderen privat. Hvordan kan du lade <code>main()</code> læse alderen uden at give direkte skriveadgang?</p>
+<h2>13. Løsningsforslag</h2>
+<p>Prøv selv først. Åbn derefter den relevante løsning.</p>
+<details>
+<summary>Opgave 1</summary>
+
+<p>Klassen hedder <code>Planet</code>. Objekterne hedder <code>planet1</code> og <code>planet2</code>. <code>&quot;Jorden&quot;</code> er en tekstværdi inde i <code>planet1</code>. Constructoren bliver kaldt to gange, én gang ved hver oprettelse.</p>
+</details>
+
+<details>
+<summary>Opgave 2</summary>
+
+<pre><code class="language-cpp">Planet venus(&quot;Venus&quot;, 0, 108.2);
+venus.visInfo();
+std::cout &lt;&lt; std::boolalpha &lt;&lt; venus.harMaaner() &lt;&lt; &#39;\n&#39;;
+</code></pre>
+<p>Det sidste kald udskriver <code>false</code>, fordi antallet er 0.</p>
+</details>
+
+<details>
+<summary>Opgave 3</summary>
+
+<pre><code class="language-cpp">mars.antalMaaner = 5;
+mars.visInfo();
+jorden.visInfo();
+</code></pre>
+<p>Mars har nu testværdien 5, og Jorden har stadig 1. De to almindelige medlemsvariabler tilhører forskellige objekter.</p>
+</details>
+
+<details>
+<summary>Opgave 4</summary>
+
+<pre><code class="language-cpp">std::cout &lt;&lt; mars.antalMaaner &lt;&lt; &#39;\n&#39;;
+std::cout &lt;&lt; std::boolalpha &lt;&lt; mars.harMaaner() &lt;&lt; &#39;\n&#39;;
+std::cout &lt;&lt; mars.harMaaner() &lt;&lt; &#39;\n&#39;;
+std::cout &lt;&lt; mars.antalMaaner &lt;&lt; &#39;\n&#39;;
+</code></pre>
+<p>Med testværdien 5 får du <code>5</code>, <code>true</code>, <code>true</code>, <code>5</code>. Metoden returnerer et resultat uden at ændre antallet.</p>
+</details>
+
+<details>
+<summary>Opgave 5</summary>
+
+<pre><code class="language-cpp">bil1.accelerer();
+bil1.accelerer();
+bil1.accelerer();
+bil2.accelerer();
+</code></pre>
+<p>Fra starttilstanden giver det 30 og 10 km/t. En ekstra acceleration på <code>bil2</code> giver 30 og 20 km/t.</p>
+</details>
+
+<details>
+<summary>Opgave 6: Komplet løsning med private data</summary>
+
+<p>Gem programmet som <code>studerende.cpp</code>:</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+class Studerende
+{
+private:
+    std::string navn;
+    int alder;
+    std::string uddannelse;
+
+public:
+    Studerende(std::string n, int a, std::string u)
+        : navn(n), alder(a), uddannelse(u)
+    {
+    }
+
+    void harFoedselsdag()
+    {
+        ++alder;
+    }
+
+    int hentAlder() const
+    {
+        return alder;
+    }
+
+    void visInfo() const
+    {
+        std::cout &lt;&lt; navn &lt;&lt; &quot;, &quot; &lt;&lt; alder
+                  &lt;&lt; &quot; aar, &quot; &lt;&lt; uddannelse &lt;&lt; &#39;\n&#39;;
+    }
+};
+
+int main()
+{
+    Studerende anna(&quot;Anna&quot;, 22, &quot;IT&quot;);
+    Studerende ali(&quot;Ali&quot;, 24, &quot;IT&quot;);
+
+    anna.harFoedselsdag();
+    anna.visInfo();
+    ali.visInfo();
+
+    return 0;
+}
+</code></pre>
+<p>Output:</p>
+<pre><code class="language-text">Anna, 23 aar, IT
+Ali, 24 aar, IT
+</code></pre>
+<p><code>hentAlder()</code> giver mulighed for at læse alderen. Den giver ikke adgang til at skrive direkte i det private medlem. Constructoren forudsætter i dette enkle eksempel, at den modtager en gyldig alder. Validering af eksempelvis negative aldre kan være en senere udvidelse.</p>
+</details>
+
+<h2>14. Typiske begynderfejl</h2>
+<table>
+<thead>
+<tr>
+<th>Fejl</th>
+<th>Hvorfor sker det?</th>
+<th>Løsning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Manglende <code>;</code> efter klassen</td>
+<td>En klassedefinition kræver et afsluttende semikolon</td>
+<td>Skriv <code>};</code></td>
+</tr>
+<tr>
+<td><code>void Planet(...)</code></td>
+<td>En constructor må ikke have returtype</td>
+<td>Skriv <code>Planet(...)</code></td>
+</tr>
+<tr>
+<td><code>Planet mars;</code> efter tilføjelse af kun en constructor med parametre</td>
+<td>Der findes ikke længere en passende constructor uden argumenter</td>
+<td>Giv argumenterne, eller definér en constructor uden argumenter</td>
+</tr>
+<tr>
+<td>Direkte adgang til et privat medlem</td>
+<td>Adgangskontrollen afviser koden</td>
+<td>Brug en offentlig metode</td>
+</tr>
+<tr>
+<td>Ændring af almindelige medlemmer i en <code>const</code>-metode</td>
+<td>Metoden lover ikke at ændre dem</td>
+<td>Brug en metode uden <code>const</code>, når ændringen er meningen</td>
+</tr>
+<tr>
+<td>Flere <code>main()</code>-funktioner i samme program</td>
+<td>Eksemplerne er selvstændige programmer</td>
+<td>Byg filerne hver for sig</td>
+</tr>
+<tr>
+<td>Uinitialiserede tal i en tidligere udgave af klassen</td>
+<td>Almindelige numeriske medlemmer får ikke altid automatisk en meningsfuld værdi</td>
+<td>Brug medlemsinitialisering eller en constructor</td>
+</tr>
+</tbody></table>
+<h2>15. Hvorfor er klasser nyttige?</h2>
+<p>Klasser samler data og de funktioner, der arbejder med dem. Det gør det lettere at holde styr på mange forskellige objekter. Du kan bruge den samme klassedefinition til flere planeter, biler eller studerende uden at skrive en ny udgave af logikken for hvert objekt.</p>
+<p>Når du senere bygger større programmer, kan private medlemmer og offentlige metoder gøre det tydeligt, hvilke ændringer et objekt tillader. Det hjælper dig med at organisere og teste koden. Klasser er dog et værktøj, ikke et krav om at gøre enhver lille variabel til et objekt af en ny klasse.</p>
+<p>Du har forstået grundideen, når du kan forklare, hvorfor <code>anna.harFoedselsdag()</code> ændrer Annas alder, mens Alis alder bliver ved med at være den samme.</p>
+</section></main><footer><div class="shell">Undervisningsmodel: diagrammerne viser data og adfærd, ikke fysiske hukommelsesadresser. Ingen netværkskald eller installation kræves.</div></footer><script>
+document.querySelectorAll('.animation-toggle').forEach(button=>{button.addEventListener('click',()=>{const img=button.closest('figure').querySelector('img');const playing=button.getAttribute('aria-pressed')==='true';img.src=playing?img.dataset.still:img.dataset.gif;button.setAttribute('aria-pressed',String(!playing));button.textContent=playing?'Afspil animation':'Stop animation';});});
+</script></body></html>
