@@ -8,7 +8,38 @@ I C++ kan vi samle sådanne oplysninger og handlinger i **klasser**. Når vi bru
 
 Artiklen begynder med planeter og bygger gradvist videre til constructors, metoder og adgangskontrol. Til sidst kan du afprøve forståelsen med opgaver og løsningsforslag.
 
-> **Om de dynamiske billeder:** Illustrationerne er animerede GIF-filer. De viser ændringer over tid, men har ikke knapper som et interaktivt lab. Markdown kører normalt ikke interaktiv JavaScript-kode. Pak ZIP-filen ud, og behold mappen `assets` ved siden af denne artikel, så billederne kan vises i en Markdown-læser med GIF-understøttelse. Hvert billede har også en tekstlig forklaring.
+## Læs, se og afprøv
+
+**[Åbn filen til det interaktive OOP-lab](interactive/klasser-og-objekter.html)**
+
+GitHubs filvisning viser HTML som kildekode. For at bruge knapperne: vælg **Code → Download ZIP**, pak repositoryet ud, og åbn `interactive/klasser-og-objekter.html` i din browser. Labbet kører lokalt uden installation og uden internet. Det simulerer C++-kodens virkning; det er ikke en C++-compiler.
+
+| Her i artiklen | I det interaktive lab |
+| --- | --- |
+| Animerede GIF-billeder og forklarende diagrammer | Ændr objekter og se data opdatere |
+| Komplette C++-programmer | Constructor med egne startværdier |
+| Fold-ud-løsninger til opgaverne | Syv opgaver med hint og feedback |
+| Tekstforklaringer til alle billeder | Start/stop af animationer og nulstilling af øvelser |
+
+**Forslag til undervisning:** Læs ét afsnit, forudsig resultatet, afprøv det i labbet, og forklar resultatet til en makker. Gem gerne en ændret udgave af de [komplette kodeeksempler](examples/program-6).
+
+### OOP betyder objektorienteret programmering
+
+OOP samler data og adfærd i objekter. Denne artikel arbejder især med klasser, objekter og indkapsling. Abstraktion er også med: vi bruger en lille model af en planet eller bil og vælger kun de egenskaber, opgaven kræver.
+
+| Begreb | Konkret betydning |
+| --- | --- |
+| Klasse | Beskriver struktur og metoder, fx `Planet` |
+| Objekt | En konkret instans, fx `mars` |
+| Abstraktion | Planet-modellen viser navn, måner og afstand, men udelader andre detaljer |
+| Indkapsling | `Bil` beskytter hastigheden med `private` og giver adgang gennem metoder |
+| Arv (næste trin) | En klasse kan bygge på en anden klasse |
+| Polymorfi (næste trin) | En fælles grænseflade kan give forskellig adfærd, fx gennem virtuelle metoder |
+
+Arv og polymorfi kræver egne eksempler og er ikke nødvendige for at løse dette labs opgaver.
+
+> **Billeder:** GIF-filerne nedenfor animerer automatisk. De tilsvarende stillbilleder og tekstforklaringer giver samme faglige indhold uden bevægelse. I labbet bestemmer du selv, om animationerne kører.
+
 
 ## 1. Hvad er en klasse?
 
@@ -70,11 +101,28 @@ Universet **indeholder planeter**. Det er en anden relation. Hvis vi laver klass
 
 Når du vælger klasser, hjælper spørgsmålet: »Hvilken slags ting er dette objekt?« Mars er en planet. En Toyota er en bil. Anna er en studerende. De svar giver os forslag til klasserne `Planet`, `Bil` og `Studerende`.
 
+### Klassens struktur som diagram
+
+```mermaid
+classDiagram
+    class Planet {
+        +string navn
+        +int antalMaaner
+        +double afstandTilSolen
+        +visInfo() void
+        +harMaaner() bool
+    }
+```
+
+Diagrammet viser en klasse med data og metoder. Plus-tegnet betyder offentlig adgang (`public`). Det viser ikke de konkrete værdier i et objekt. Dem ser du i animationen nedenfor.
+
 ## 4. Samme klasse, forskellige data
 
 Vi kan oprette mange objekter fra den samme klasse. De almindelige, ikke-statiske medlemsvariabler tilhører hvert sit objekt.
 
 ![Animation: Planet-objekter oprettes, hvorefter kun Mars får en ny testværdi](assets/planet-objekter.gif)
+
+[Se samme figur uden animation](assets/planet-objekter-still.png).
 
 *Animationen er et skematisk billede af objekternes data, ikke et præcist kort over computerens hukommelse.*
 
@@ -248,6 +296,8 @@ I næste program har hver bil sin egen private hastighed. Constructoren starter 
 
 ![Animation: kald til accelerer ændrer kun den valgte bils hastighed](assets/biler-metoder.gif)
 
+[Se samme figur uden animation](assets/biler-metoder-still.png).
+
 Animationen viser følgende rækkefølge:
 
 | Trin | Kald | bil1 | bil2 |
@@ -344,6 +394,8 @@ Erstat `planeter.cpp` med `biler.cpp` eller `studerende.cpp`, når du arbejder m
 
 ## 12. Øvelser: forudsig, afprøv og forklar
 
+Brug det [interaktive lab](interactive/klasser-og-objekter.html) til at se resultaterne. Labbet har desuden en syvende opgave om `public` og `private`. Husk at downloade og åbne HTML-filen i en browser som beskrevet øverst.
+
 En god øvelse har tre dele. Først forudsiger du resultatet. Derefter kører du programmet. Til sidst forklarer du, hvorfor resultatet blev sådan.
 
 ### Opgave 1: Klasse eller objekt?
@@ -383,11 +435,18 @@ Opret Anna på 22 år og Ali på 24 år. Kald kun `anna.harFoedselsdag()`. Kontr
 
 ## 13. Løsningsforslag
 
-### Opgave 1
+
+Prøv selv først. Åbn derefter den relevante løsning.
+
+<details>
+<summary>Opgave 1</summary>
 
 Klassen hedder `Planet`. Objekterne hedder `planet1` og `planet2`. `"Jorden"` er en tekstværdi inde i `planet1`. Constructoren bliver kaldt to gange, én gang ved hver oprettelse.
 
-### Opgave 2
+</details>
+
+<details>
+<summary>Opgave 2</summary>
 
 ```cpp
 Planet venus("Venus", 0, 108.2);
@@ -397,7 +456,10 @@ std::cout << std::boolalpha << venus.harMaaner() << '\n';
 
 Det sidste kald udskriver `false`, fordi antallet er 0.
 
-### Opgave 3
+</details>
+
+<details>
+<summary>Opgave 3</summary>
 
 ```cpp
 mars.antalMaaner = 5;
@@ -407,7 +469,10 @@ jorden.visInfo();
 
 Mars har nu testværdien 5, og Jorden har stadig 1. De to almindelige medlemsvariabler tilhører forskellige objekter.
 
-### Opgave 4
+</details>
+
+<details>
+<summary>Opgave 4</summary>
 
 ```cpp
 std::cout << mars.antalMaaner << '\n';
@@ -418,7 +483,10 @@ std::cout << mars.antalMaaner << '\n';
 
 Med testværdien 5 får du `5`, `true`, `true`, `5`. Metoden returnerer et resultat uden at ændre antallet.
 
-### Opgave 5
+</details>
+
+<details>
+<summary>Opgave 5</summary>
 
 ```cpp
 bil1.accelerer();
@@ -429,7 +497,10 @@ bil2.accelerer();
 
 Fra starttilstanden giver det 30 og 10 km/t. En ekstra acceleration på `bil2` giver 30 og 20 km/t.
 
-### Opgave 6: Komplet løsning med private data
+</details>
+
+<details>
+<summary>Opgave 6: Komplet løsning med private data</summary>
 
 Gem programmet som `studerende.cpp`:
 
@@ -489,6 +560,8 @@ Ali, 24 aar, IT
 
 `hentAlder()` giver mulighed for at læse alderen. Den giver ikke adgang til at skrive direkte i det private medlem. Constructoren forudsætter i dette enkle eksempel, at den modtager en gyldig alder. Validering af eksempelvis negative aldre kan være en senere udvidelse.
 
+</details>
+
 ## 14. Typiske begynderfejl
 
 | Fejl | Hvorfor sker det? | Løsning |
@@ -508,3 +581,4 @@ Klasser samler data og de funktioner, der arbejder med dem. Det gør det lettere
 Når du senere bygger større programmer, kan private medlemmer og offentlige metoder gøre det tydeligt, hvilke ændringer et objekt tillader. Det hjælper dig med at organisere og teste koden. Klasser er dog et værktøj, ikke et krav om at gøre enhver lille variabel til et objekt af en ny klasse.
 
 Du har forstået grundideen, når du kan forklare, hvorfor `anna.harFoedselsdag()` ændrer Annas alder, mens Alis alder bliver ved med at være den samme.
+
