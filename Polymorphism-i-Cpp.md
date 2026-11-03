@@ -297,6 +297,207 @@ Hvert objekt udfører sin egen version af `attack()`. Det er fordelen ved dynami
 
 **Refleksion:** Hvorfor kan løkkens indhold være uændret, selvom du tilføjer en ny slags fjende?
 
+## 9. Udvidelsesopgaver: Byg videre på spillet
+
+Tag udgangspunkt i det komplette program i afsnit 6. Færdiggør først Dragon-opgaven i afsnit 8. Opgave 1–2 bygger videre på denne version. Lav **separate kopier** til forsøgene i opgave 3, 4 og 5, da de ændrer baseklassen på forskellige måder.
+
+| Opgave | Fokus | Niveau | Vejledende tid |
+| --- | --- | --- | --- |
+| 1. Alle fjender angriber | Fælles interface og løkke | 🟢 Begynder | 15–20 min. |
+| 2. Send en fjende til en funktion | Baseklassereferencer | 🟡 Øvet | 15–20 min. |
+| 3. Eksperimentér med virtual | Statisk og dynamisk binding | 🟡 Øvet | 20–25 min. |
+| 4. Gør Enemy abstrakt | Pure virtual og override | 🔵 Udfordring | 20–25 min. |
+| 5. Find object slicing | Kopiering kontra reference | 🔵 Udfordring | 20–25 min. |
+
+### Opgave 1 – En fælles samling af fjender
+
+**Mål:** Tilføj en ny type uden at ændre løkkens angrebslogik.
+
+Opret en Ninja, et Monster og en Dragon. Sæt styrkerne til henholdsvis `20`, `80` og `100`. Lad Dragon udskrive:
+
+```text
+Dragon angriber med ild! Styrke: 100
+```
+
+Saml adresserne i et `Enemy*`-array. Kald alle angreb med én løkke.
+
+**Krav:** Løkkens krop må kun kalde `enemy->attack();`. Brug ikke `if`, `switch` eller typekonverteringer til at vælge fjendetype.
+
+**Forventet output:**
+
+```text
+Ninja angriber med et svaerd! Styrke: 20
+Monster angriber med kloer! Styrke: 80
+Dragon angriber med ild! Styrke: 100
+```
+
+<details>
+<summary>Hint – samlingen gemmer adresser</summary>
+
+Brug `Enemy* enemies[] = { &n, &m, &d };`. Objekterne skal eksistere, så længe løkken bruger dem. Pointerne ejer ikke de lokale objekter, så du skal ikke bruge `delete`.
+
+</details>
+
+**Kontrol:** Skift kun Dragonens styrke til `120`. Kun dens udskrift skal ændre styrke.
+
+### Opgave 2 – En funktion, der kan modtage alle fjender
+
+**Mål:** Brug polymorfi gennem en baseklassereference.
+
+Tilføj følgende funktion uden for klasserne:
+
+```cpp
+void udfoerAngreb(Enemy& enemy) {
+    // TODO: Kald fjendens virtuelle attack().
+}
+```
+
+Kald funktionen med `n`, `m` og `d`.
+
+**Forventning:** Du får de samme tre angreb som i opgave 1, med de styrker du har sat. Funktionen må ikke spørge efter fjendens konkrete type.
+
+<details>
+<summary>Hint – reference og punktum</summary>
+
+En reference bruger `enemy.attack();`. Parameteren `Enemy&` henviser til det eksisterende objekt; den kopierer det ikke. Den virtuelle funktion vælger stadig den konkrete fjendes implementation.
+
+</details>
+
+**Forklar:** Hvad betyder `&` i parameteren? Hvorfor bruges `.` her, men `->` i pointerløkken?
+
+### Opgave 3 – Hvad sker der uden virtual?
+
+**Mål:** Se forskellen på statisk og dynamisk binding. Lav dette forsøg i en separat kopi af programmet fra afsnit 6.
+
+1. Forudsig resultatet af `e1->attack();`.
+2. Fjern kun `virtual` fra `Enemy::attack()`. Bevar den virtuelle destructor.
+3. Prøv at kompilere med `override` bevaret i Ninja og Monster.
+4. Notér fejlen. Fjern derefter `override` fra begge afledte `attack()`-funktioner, og kør igen.
+5. Sammenlign `n.attack();` med `e1->attack();`.
+6. Gendan `virtual` og `override` efter forsøget.
+
+| Variant | Forventet resultat |
+| --- | --- |
+| `virtual` i Enemy og `override` i Ninja | Pointerkaldet bruger Ninjaens angreb. |
+| Uden `virtual`, men med `override` | Kompileringsfejl: funktionen overrider ikke en virtuel basefunktion. |
+| Uden både `virtual` og `override` | Pointerkaldet udskriver `Enemy angriber med styrke 20`. |
+| Direkte `n.attack()` uden virtual | Ninjaens egen funktion kaldes stadig. |
+
+<details>
+<summary>Hint – pointerens type og objektets type</summary>
+
+Uden en virtuel `attack()` afgøres `e1->attack()` ud fra den statiske type `Enemy*`. Med `virtual` bruges den konkrete implementation for det objekt, pointeren peger på.
+
+At destructoren er virtuel gør ikke automatisk andre funktioner virtuelle.
+
+</details>
+
+**Forklar:** Hvorfor er `override` nyttigt som kontrol, selvom det er `virtual` i baseklassen, der etablerer den virtuelle funktion?
+
+### Opgave 4 – Enemy skal være en abstrakt klasse
+
+**Mål:** Kræv, at konkrete fjender implementerer deres eget angreb.
+
+Lav en ny kopi af den fungerende version med `virtual`. Erstat hele baseklassens `attack()`-definition med:
+
+```cpp
+virtual void attack() = 0;
+```
+
+Dette kaldes en **pure virtual funktion**. En klasse med en sådan funktion, som endnu ikke har en konkret endelig override, er abstrakt og kan ikke oprettes som et selvstændigt objekt.
+
+1. Kontrollér, at Ninja, Monster og Dragon stadig kan angribe gennem `Enemy*`.
+2. Prøv midlertidigt at skrive `Enemy e;`. Notér kompileringsfejlen, og fjern linjen igen.
+3. Fjern midlertidigt Dragonens `attack()`. Prøv at oprette `Dragon d;`.
+4. Gendan Dragonens funktion.
+
+**Forventning:** `Enemy e;` kan ikke kompileres. En Dragon uden en implementation af den pure virtual funktion er også abstrakt. Med alle tre overrides virker pointerløkken stadig.
+
+<details>
+<summary>Hint – behold resten af baseklassen</summary>
+
+Behold constructor, `attackPower`, `setAttackPower()` og den virtuelle destructor. Du ændrer kun `attack()`. `= 0` betyder ikke, at funktionen returnerer tallet nul.
+
+</details>
+
+**Forklar:** Hvorfor kan `Enemy*` og `Enemy&` stadig bruges, selvom du ikke kan skrive `Enemy e;`?
+
+### Opgave 5 – Opdag object slicing
+
+**Mål:** Forstå, hvorfor polymorfe objekter normalt sendes med reference eller pointer.
+
+Brug en separat kopi af det komplette program i afsnit 6, hvor `Enemy` **ikke er abstrakt**, og `attack()` stadig er virtuel. Tilføj:
+
+```cpp
+void angrebMedKopi(Enemy enemy) {
+    enemy.attack();
+}
+
+void angrebMedReference(Enemy& enemy) {
+    enemy.attack();
+}
+```
+
+Afprøv i `main()`:
+
+```cpp
+Ninja n;
+n.setAttackPower(20);
+angrebMedKopi(n);
+angrebMedReference(n);
+```
+
+**Forventet output:**
+
+```text
+Enemy angriber med styrke 20
+Ninja angriber med et svaerd! Styrke: 20
+```
+
+<details>
+<summary>Hint – hvad bliver kopieret?</summary>
+
+Værdiparameteren `Enemy enemy` opretter et nyt `Enemy`-objekt fra Ninjaens basedel. Ninja-delen kommer ikke med. Dette kaldes **object slicing**.
+
+Referencen `Enemy&` henviser til den oprindelige Ninja. Derfor virker dynamisk binding til `Ninja::attack()`. Det oprindelige objekt `n` ændrer ikke type i nogen af forsøgene.
+
+</details>
+
+**Forklar:** Hvorfor kan `virtual` ikke genskabe Ninja-delen, når objektet allerede er kopieret til et selvstændigt `Enemy`-objekt?
+
+## 10. Mini-projekt og aflevering: Tre kamprunder
+
+Brug den fungerende version med Ninja, Monster og Dragon. Kør tre kamprunder gennem det samme `Enemy*`-array.
+
+**Regler:**
+
+- Runde 1 bruger styrkerne `20`, `80` og `100`.
+- Før hver efterfølgende runde øges hver fjendes styrke med `10`.
+- Tilføj `int getAttackPower() const` til Enemy, så hovedprogrammet kan læse styrken.
+- Udvid `setAttackPower()`, så negative værdier afvises, og den tidligere styrke bevares. Lad funktionen returnere `bool`: `true` ved accept og `false` ved afvisning.
+- Bevar `override` i alle konkrete fjendeklasser og den virtuelle destructor.
+- Brug samme løkke til alle fjendetyper; ingen typekontrol i angrebslogikken.
+
+| Runde | Ninja | Monster | Dragon |
+| --- | --- | --- | --- |
+| 1 | 20 | 80 | 100 |
+| 2 | 30 | 90 | 110 |
+| 3 | 40 | 100 | 120 |
+
+**Test også:** En ny fjende starter med styrke `0`; `setAttackPower(0)` accepteres; `setAttackPower(-5)` afvises uden at ændre den tidligere værdi.
+
+**Ekstra udfordring:** Tilføj en `RobotEnemy`. Kun oprettelsen og samlingen skal udvides; selve angrebsløkken skal være uændret.
+
+**Aflever:**
+
+- En `.cpp`-fil med det færdige spil.
+- En testtabel med forventede og faktiske resultater for alle tre runder samt negative værdier.
+- En kort forklaring af `virtual`, `override` og forskellen på pointerens type og objektets type.
+- Din forklaring på fejlen i opgave 3 og resultatet af object slicing i opgave 5.
+
+**Selvkontrol:** Vælger det virtuelle kald den rigtige funktion? Har alle objekter deres egne styrker? Virker en ny fjendetype uden ændringer i angrebsløkken? Undgår du at kopiere de afledte objekter til `Enemy`-værdier?
+
+
 ---
 
 **Materiale:** Bearbejdet fra den vedhæftede PDF *Polymorphism i C++: Use Case*, med nye diagrammer, animation, nøgleordsforklaring og øvelse. De tomme PDF-sider er udeladt.
